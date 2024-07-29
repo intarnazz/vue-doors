@@ -10,26 +10,13 @@
   font-family: Source-Serif-4
   src: url('@/assets/fonts/Source-Serif-4.woff2')
 
-// @font-face
-//   font-family: Muller
-//   font-style: normal
-//   font-weight: 700
-//   src: url('@/assets/fonts/Muller-Medium.29f63e87.woff')
-
-// @font-face
-//   font-family: Muller
-//   font-style: normal
-//   font-weight: 900
-//   src: url('@/assets/fonts/Muller-Bold.3d241629.woff')
-
   
-h1
+.source
   font-family: "Source Serif 4", Georgia, serif
   font-weight: 500
   font-size: 72px
 
-h2
-  // font-family: Mona-Sans, sans-serif
+.sans
   font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight: 500
   font-size: 20px
@@ -37,8 +24,13 @@ h2
 *
   box-sizing: border-box
 
+h1 
+  margin: 0
+  padding: 0
+
 html
-  font-family: Mona-Sans
+  font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-weight: 500
   color: $textColor
   background-color: #F8F7F3
   font-size: 16px
@@ -106,3 +98,16 @@ button:focus
 a
   color: $textColor
   text-decoration: none
+
+.button
+  background-color: $black
+  color: $wight
+  border-radius: 100px
+  padding: 1em 3em
+
+.mark
+  font-size: 14px
+  background-color: $mainColor
+  padding: 1em 2em
+  border-radius: 100px
+

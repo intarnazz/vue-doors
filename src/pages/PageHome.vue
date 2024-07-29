@@ -1,17 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-
-// onMounted(async () => {
-//   await init()
-// })
+import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import SectionOpener from '@/components/sections/SectionOpener.vue'
 </script>
 
 <template>
-  <main v-if="!loding" class="main">
-    <h1>The world’s destination for design</h1>
-    <h2>
-      Get inspired by the work of millions of top-rated designers & agencies around the world.
-    </h2>
+  <main v-if="!loding" class="main box-y">
+    <LayoutWrapper class="box-x main__wrapper">
+      <SectionOpener />
+    </LayoutWrapper>
   </main>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import SearchComponent from '@/components/SearchComponent.vue'
+import SearchComponent from '@/components/ComponentSearch.vue'
 </script>
 
 <template>
