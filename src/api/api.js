@@ -1,2 +1,6 @@
-import * as BookmakersGetModel from './bookmaker/BookmakersGet.js'
-export const BookmakersGet = BookmakersGetModel.BookmakersGet
+import * as GetArrModel from './get/GetArr.js'
+const GetArr = GetArrModel.GetArr
+
+export const GetDoors = async (skip, take) => {
+  return await GetArr('door', skip, take)
+}
