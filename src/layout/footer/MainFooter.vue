@@ -7,7 +7,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
     <LayoutWrapper class="box-x footer__wrapper">
       <img class="flex" src="" alt="LOGO" />
       <nav></nav>
-      <div class="box-x">
+      <div class="box-x footer__web-wrapper">
         <p>Мы в соцсетях</p>
         <img src="@/assets/icons/link/VK.svg" alt="VK" />
         <img src="@/assets/icons/link/Telegram.svg" alt="Telegram" />
@@ -21,6 +21,8 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 .footer
   font-size: 20px
   margin: 37px 0
+  &__web-wrapper
+    gap: 1rem
   & img
     font-family: Source-Serif-4
     font-weight: 500
