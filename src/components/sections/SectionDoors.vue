@@ -72,7 +72,7 @@ onMounted(async () => {
     gap: 1rem
     & div
       &:first-child
-        font-size: 2rem
+        font-size: 1.7rem
         font-weight: 700
   &__item
     display: flex

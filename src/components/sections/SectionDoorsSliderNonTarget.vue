@@ -5,30 +5,67 @@ import { title, price } from '@/utilte/utilte.js'
 
 const API_URL = import.meta.env.VITE_API_URL
 const doors = ref({})
+const slider = ref(0)
+const loop = ref(0)
+const speed = ref(1)
+const isHovered = ref(false)
 
 onMounted(async () => {
   const res = await GetDoors(0, 10)
   doors.value = res.data
 })
+
+const mouseEvent = (e) => {
+  isHovered.value = e
+}
+
+setInterval(() => {
+  loop.value += speed.value
+  slider.value -= speed.value
+  if (loop.value >= 280) {
+    loop.value = 0
+    slider.value += 280
+    const door = doors.value.shift()
+    doors.value.push(door)
+  }
+}, 10)
+
+setInterval(() => {
+  if (isHovered.value === true && speed.value >= 0) {
+    speed.value -= 0.01
+  } else if (speed.value < 0) {
+    speed.value = 0
+  } else if (isHovered.value === false && speed.value <= 1) {
+    speed.value += 0.01
+  } else if (speed.value > 1) {
+    speed.value = 1
+  }
+}, 10)
 </script>
 
 <template>
   <section class="doorsSliderNonTarget">
-    <div class="box-x doorsSliderNonTarget__wrapper">
-      <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item">
-        <img
-          :src="`${API_URL}image/${door.image_front.id}`"
-          :alt="door.image_front.alt"
-          class="doorsSliderNonTarget__item-img"
-        />
-        <div class="doorsSliderNonTarget__gradient"></div>
-        <div class="doorsSliderNonTarget__info-wrapper box-y">
-          <p>
-            {{ title(door.name) }}
-          </p>
-          <p>
-            {{ price(door.price) }}
-          </p>
+    <div
+      @mouseenter="mouseEvent(true)"
+      @mouseleave="mouseEvent(false)"
+      class="box-x doorsSliderNonTarget__slider-box"
+    >
+      <div :style="`margin-left: ${slider}px`" class="box-x doorsSliderNonTarget__wrapper">
+        <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item">
+          <img
+            :src="`${API_URL}image/${door.image_front.id}`"
+            :alt="door.image_front.alt"
+            class="doorsSliderNonTarget__item-img"
+          />
+          <div class="doorsSliderNonTarget__gradient"></div>
+          <div class="doorsSliderNonTarget__info-wrapper box-y">
+            <p>
+              {{ title(door.name) }}
+            </p>
+            <p>
+              {{ price(door.price) }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -37,14 +74,11 @@ onMounted(async () => {
 
 <style lang="sass" scoped>
 .doorsSliderNonTarget
+  &__slider-box
+    width: 99.5dvw
+    overflow: hidden
   &__wrapper
     gap: 40px
-    width: 99dvw
-    overflow: hidden
-    & div
-      &:first-child
-        margin-left: -90px
-
   &__gradient
     width: 100%
     height: 100%
@@ -67,9 +101,9 @@ onMounted(async () => {
     gap: .5em
 
   &__item
-    width: 242px
+    width: 240px
     height: 450px
-    min-width: 242px
+    min-width: 240px
     border-radius: 23px
     position: relative
     & img
