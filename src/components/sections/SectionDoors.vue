@@ -13,45 +13,54 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="door">
-    <div v-for="(door, key) in doors" :key="key" class="door__item box-y">
-      <div class="door__image-wrapper box-x">
-        <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
-        <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
+  <section class="door box-y">
+    <h2>Explore inspiring designs</h2>
+    <div class="door__grid">
+      <div v-for="(door, key) in doors" :key="key" class="door__item box-y">
+        <div class="door__image-wrapper box-x">
+          <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
+          <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
+        </div>
+        <div class="box-y flex door__info-wrapper">
+          <div class="box-x door__info-row flex">
+            <p>
+              {{ title(door.name) }}
+            </p>
+            <p>
+              {{ price(door.price) }}
+            </p>
+          </div>
+          <div class="box-x door__info-row flex">
+            <p>Brand:</p>
+            <p>
+              {{ title(door.brand.name) }}
+            </p>
+          </div>
+          <div class="box-x door__info-row flex">
+            <p>Material:</p>
+            <p>
+              {{ title(door.material.name) }}
+            </p>
+          </div>
+        </div>
+        <div class="box-y"></div>
       </div>
-      <div class="box-y flex door__info-wrapper">
-        <div class="box-x door__info-row flex">
-          <p>
-            {{ title(door.name) }}
-          </p>
-          <p>
-            {{ price(door.price) }}
-          </p>
-        </div>
-        <div class="box-x door__info-row flex">
-          <p>Brand:</p>
-          <p>
-            {{ title(door.brand.name) }}
-          </p>
-        </div>
-        <div class="box-x door__info-row flex">
-          <p>Material:</p>
-          <p>
-            {{ title(door.material.name) }}
-          </p>
-        </div>
-      </div>
-      <div class="box-y"></div>
     </div>
   </section>
 </template>
 
 <style lang="sass" scoped>
 .door
-  width: 100%
-  display: grid
-  grid-template-columns: 1fr  1fr  1fr
-  gap: 2rem
+  gap: 2.5rem
+  align-items: center
+  & h2
+    font-size: 2.5rem
+    font-weight: 500
+  &__grid
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr  1fr  1fr
+    gap: 2rem
   &__info-row
     justify-content: space-between
     & p
