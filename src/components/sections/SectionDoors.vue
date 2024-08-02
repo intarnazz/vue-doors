@@ -67,7 +67,7 @@ onMounted(async () => {
       &:first-child
         font-weight: 700
   &__info-wrapper
-    margin-top: -22px
+    // margin-top: -21px
     padding: 14px
     gap: 1rem
     & div

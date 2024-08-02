@@ -28,7 +28,7 @@ setInterval(() => {
     const door = doors.value.shift()
     doors.value.push(door)
   }
-}, 10)
+}, 9)
 
 setInterval(() => {
   if (isHovered.value === true && speed.value >= 0) {
@@ -40,7 +40,7 @@ setInterval(() => {
   } else if (speed.value > 1) {
     speed.value = 1
   }
-}, 10)
+}, 1)
 </script>
 
 <template>
