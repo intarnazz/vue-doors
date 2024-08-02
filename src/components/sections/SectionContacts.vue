@@ -4,18 +4,17 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 
 <template>
   <section class="contacts">
-    <LayoutWrapper class="flex box-x contacts__wrapper">
-      <h2 class="source">Find your next designer today</h2>
-      <p class="sans">
-        Get inspired by the work of millions of top-rated designers & agencies around the world.
-      </p>
-      <button class="button">button</button>
+    <LayoutWrapper class="flex box-y contacts__wrapper">
+      <h2 class="source">Свяжитесь с нами и найдите идеальное решение</h2>
+      <p class="sans">Свяжитесь с нами, чтобы узнать больше и получить консультацию</p>
+      <button class="button">Свяжитесь с нами</button>
     </LayoutWrapper>
   </section>
 </template>
 
 <style lang="sass" scoped>
 .contacts
+  text-align: center
   background-color: $mainColor
   padding: 2.9rem 0
   &__wrapper

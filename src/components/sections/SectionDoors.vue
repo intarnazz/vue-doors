@@ -14,7 +14,7 @@ onMounted(async () => {
 
 <template>
   <section class="door box-y">
-    <h2>Explore inspiring designs</h2>
+    <h2>Откройте идеальные двери</h2>
     <div class="door__grid">
       <div v-for="(door, key) in doors" :key="key" class="door__item box-y">
         <div class="door__image-wrapper box-x">
@@ -31,13 +31,13 @@ onMounted(async () => {
             </p>
           </div>
           <div class="box-x door__info-row flex">
-            <p>Brand:</p>
+            <p>Бренд:</p>
             <p>
               {{ title(door.brand.name) }}
             </p>
           </div>
           <div class="box-x door__info-row flex">
-            <p>Material:</p>
+            <p>Материал:</p>
             <p>
               {{ title(door.material.name) }}
             </p>

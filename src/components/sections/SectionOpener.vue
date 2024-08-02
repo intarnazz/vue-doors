@@ -2,12 +2,10 @@
 
 <template>
   <section class="opener">
-    <p class="mark source">Over 3 million ready-to-work creative</p>
-    <h1 class="source">The world’s destination for design</h1>
-    <h2 class="sans">
-      Get inspired by the work of millions of top-rated designers & agencies around the world.
-    </h2>
-    <button class="button">button</button>
+    <p class="mark source">Более 3 миллионов дверей для вашего дома</p>
+    <h1 class="source">Мир дверей для вашего дома</h1>
+    <h2 class="sans">Откройте для себя разнообразие дверей и уникальных решений для вашего интерьера</h2>
+    <button class="button">Свяжитесь с нами</button>
   </section>
 </template>
 
