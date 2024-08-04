@@ -31,7 +31,7 @@ setInterval(() => {
 }, 9)
 
 setInterval(() => {
-  if (isHovered.value === true && speed.value >= 0) {
+  if (isHovered.value === true && speed.value > 0) {
     speed.value -= 0.01
   } else if (speed.value < 0) {
     speed.value = 0
@@ -51,7 +51,7 @@ setInterval(() => {
       class="box-x doorsSliderNonTarget__slider-box"
     >
       <div :style="`margin-left: ${slider}px`" class="box-x doorsSliderNonTarget__wrapper">
-        <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item">
+        <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item hover">
           <img
             :src="`${API_URL}image/${door.image_front.id}`"
             :alt="door.image_front.alt"
@@ -76,6 +76,8 @@ setInterval(() => {
 .doorsSliderNonTarget
   &__slider-box
     width: 99.5dvw
+    padding: 2rem 0 
+    margin: -2rem 0 
     overflow: hidden
   &__wrapper
     gap: 40px

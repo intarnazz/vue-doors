@@ -56,6 +56,11 @@ html
 .flex
   flex: 1
 
+::selection 
+  background: hsla(133,100%, 50%,.5)
+  // color: #fff
+  
+
 ::-webkit-scrollbar
   width: 7px
 
@@ -97,15 +102,59 @@ a
   color: $textColor
   text-decoration: none
 
+$box-shadow: 0 0 20px hsl(133,99%,74%)
+
 .button
   background-color: $black
   color: $wight
   border-radius: 100px
   padding: 1em 3em
+  transition: .5s
+  &:hover
+    box-shadow: $box-shadow
+    transform: scale(1.05)
+
+.hover
+  transition: .2s
+  cursor: pointer
+  &:hover
+    position: relative
+    z-index: 2
+    box-shadow: 0 0 20px 0 #838383
+    transform: scale(1.05)
 
 .mark
   font-size: 14px
   background-color: $mainColor
   padding: 1em 2em
   border-radius: 100px
+  animation: 60s infinite alternate mark-animation
+
+@keyframes mark-animation 
+  0% 
+    background-color: hsl(133,59%,74%)
+  10% 
+    background-color: hsl(97,59%,74%)
+  20% 
+    background-color: hsl(61,59%,74%)
+  30% 
+    background-color: hsl(25,59%,74%)
+  40% 
+    background-color: hsl(349,59%,74%)
+  50% 
+    background-color: hsl(313,59%,74%)
+  60% 
+    background-color: hsl(277,59%,74%)
+  70% 
+    background-color: hsl(241,59%,74%)
+  80% 
+    background-color: hsl(205,59%,74%)
+  90% 
+    background-color: hsl(169,59%,74%)
+  100% 
+    background-color: hsl(133,59%,74%)
+
+  
+  
+
 

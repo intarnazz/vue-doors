@@ -16,7 +16,7 @@ onMounted(async () => {
   <section class="door box-y">
     <h2>Откройте идеальные двери</h2>
     <div class="door__grid">
-      <div v-for="(door, key) in doors" :key="key" class="door__item box-y">
+      <div v-for="(door, key) in doors" :key="key" class="door__item hover box-y">
         <div class="door__image-wrapper box-x">
           <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
           <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
