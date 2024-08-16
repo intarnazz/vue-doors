@@ -1,13 +1,14 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SearchComponent from '@/components/ComponentSearch.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <header class="header box-shadow">
     <LayoutWrapper class="box-x header__wrapper">
       <nav class="flex box-x">
-        <p>Каталог</p>
+        <RouterLink :to="{ name: 'contact' }">Каталог</RouterLink>
         <p>Контакты</p>
       </nav>
       <img src="" alt="LOGO" />
@@ -18,7 +19,10 @@ import SearchComponent from '@/components/ComponentSearch.vue'
 
 <style lang="sass" scoped>
 .header
-  margin: 37px 0
+  padding: 1rem 0
+  box-shadow: 0 0 10px 0 #d4d4d4
+  position: relative
+  z-index: 1
   & nav
     justify-content: start
     gap: 1em

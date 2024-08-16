@@ -9,9 +9,12 @@ import router from '@/router/router.js'
 createApp(App).use(router).mount('#app')
 
 
-// [ ] -  анимация mark source
-// [ ] -  анимация кнопки
-// [ ] -  py error
-// [ ] -  space bat
-// [ ] -  запретить выделение и цвет выделения
+// [X] -  анимация mark source
+// [X] -  анимация кнопки
+// [X] -  py error
+// [X] -  space bat
+// [X] -  цвет выделения
+// [ ] -  запретить выделение
 // [ ] -  прогрузка фоток
+// [X] -  контакты
+// [X] -  контакты fix

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/PageHome.vue'
+import Сontacts from '@/pages/PageContact.vue'
 
 // import {
 //   ForecastGetContent,
@@ -15,9 +16,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home
+    },
+    {
+      path: '/contact-us',
+      name: 'contact',
+      component: Сontacts
     }
+
     // {
     //   path: '/all-bonus',
     //   name: 'AllBonus',

@@ -1,6 +1,5 @@
 <script setup>
 import MainHeader from '@/layout/header/MainHeader.vue'
-import MainFooter from '@/layout/footer/MainFooter.vue'
 // import { useRoute } from 'vue-router'
 // import { watchEffect } from 'vue'
 
@@ -19,7 +18,6 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
 <template>
   <MainHeader />
   <RouterView />
-  <MainFooter />
 </template>
 
 <style lang="sass" scoped></style>

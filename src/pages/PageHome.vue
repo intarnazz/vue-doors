@@ -1,9 +1,10 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SectionOpener from '@/components/sections/SectionOpener.vue'
-import SectionContacts from '@/components/sections/SectionContacts.vue'
+import SectionContacts from '@/components/sections/SectionContactUs.vue'
 import SectionDoors from '@/components/sections/SectionDoors.vue'
 import SectionDoorsSliderNonTarget from '@/components/sections/SectionDoorsSliderNonTarget.vue'
+import MainFooter from '@/layout/footer/MainFooter.vue'
 </script>
 
 <template>
@@ -17,6 +18,7 @@ import SectionDoorsSliderNonTarget from '@/components/sections/SectionDoorsSlide
     </LayoutWrapper>
     <SectionContacts />
   </main>
+  <MainFooter />
 </template>
 
 <style lang="sass" scoped>
