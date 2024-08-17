@@ -64,7 +64,7 @@ const licks = ref([
 
 <style lang="sass" scoped>
 .sans
-  font-size: 48px
+  font-size: 2.5rem
   margin: 2rem 0
 .map
   width: 100%
@@ -78,11 +78,12 @@ const licks = ref([
   &__item
     justify-content: flex-start
     gap: 2rem
-    font-size: 1.8rem
+    font-size: 1rem
     transition: .2s
     padding: 1rem
     border-radius: 10px
     outline: 3px solid #00000000
+    margin-left: -1rem
     &:hover
       background-color: #e5f0ec
       outline: 3px solid #00774d
@@ -91,7 +92,7 @@ const licks = ref([
     gap: 1.6rem
     padding: 0 4rem
     & img
-      width: 65px
+      width: 32px
   &__box-decor
     position: absolute
     &_box

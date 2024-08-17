@@ -1,12 +1,12 @@
 <script setup>
 // import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import SectionContacts from '@/components/sections/SectionContact.vue'
+import SectionContactUsMain from '@/components/sections/SectionContactUsMain.vue'
 </script>
 
 <template>
   <main v-if="!loding" class="main box-y">
     <!-- <LayoutWrapper class="flex box-y main__wrapper"> -->
-    <SectionContacts />
+    <SectionContactUsMain />
     <!-- </LayoutWrapper> -->
   </main>
 </template>
