@@ -15,6 +15,8 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
 <style lang="sass" scoped>
 .main
   gap: 4.5rem
+  justify-content: center
+  align-items: center
   &__wrapper
     display: flex
     align-items: center

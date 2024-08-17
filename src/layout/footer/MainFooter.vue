@@ -26,6 +26,9 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 .footer
   font-size: 20px
   margin: 37px 0
+  display: flex
+  justify-content: center
+  align-items: center
   & nav
     gap: 1em
   &__web-wrapper

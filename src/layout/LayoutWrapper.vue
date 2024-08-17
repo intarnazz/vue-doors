@@ -15,24 +15,26 @@ const wrapperClass = computed(() => {
 // watchEffect(() => {
 //   console.log('Маршрут изменился:', route.path)
 //   if (route.path === '/special-route') {
-//     // 
+//     //
 //   }
 // })
 </script>
 
 <template>
-  <div :class="wrapperClass">
+  <div :class="`${wrapperClass} default`">
     <slot> </slot>
   </div>
 </template>
 
 <style lang="sass" scoped>
+.default
+  transition: .5s
+
 .special-wrapper
-  margin: 0 4rem
+  width: calc( 100dvw - 8rem )
 
 .wrapper
   width: 1300px
-  margin: auto
 
 @media screen and (max-width: 1440px)
   .wrapper

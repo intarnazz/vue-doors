@@ -8,7 +8,6 @@ import router from '@/router/router.js'
 
 createApp(App).use(router).mount('#app')
 
-
 // [X] -  анимация mark source
 // [X] -  анимация кнопки
 // [X] -  py error
@@ -20,3 +19,5 @@ createApp(App).use(router).mount('#app')
 // [ ] -  запретить выделение
 // [ ] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
+// [ ] -  Layout page
+// [ ] -  Too Many Requests

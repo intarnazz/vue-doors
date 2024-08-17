@@ -16,7 +16,7 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
     <LayoutWrapper class="flex box-y main__wrapper">
       <SectionDoors />
     </LayoutWrapper>
-    <SectionContacts />
+    <SectionContacts style="width: 100%;" />
   </main>
   <MainFooter />
 </template>
@@ -25,6 +25,8 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
 .main
   gap: 4.5rem
   margin: 5rem 0
+  justify-content: center
+  align-items: center
   &__wrapper
     display: flex
     align-items: center

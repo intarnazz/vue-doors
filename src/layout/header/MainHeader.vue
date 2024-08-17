@@ -25,6 +25,9 @@ import { RouterLink } from 'vue-router'
   box-shadow: 0 0 10px 0 #d4d4d4
   position: relative
   z-index: 1
+  display: flex
+  justify-content: center
+  align-items: center
   & nav
     justify-content: start
     gap: 1em
