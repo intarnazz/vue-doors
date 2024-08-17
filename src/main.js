@@ -21,3 +21,5 @@ createApp(App).use(router).mount('#app')
 // [ ] -  анимация вкладок для header
 // [ ] -  Layout page
 // [ ] -  Too Many Requests
+// [ ] -  search fix
+// [ ] -  php contact

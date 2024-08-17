@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header class="header box-shadow">
-    <LayoutWrapper class="box-x header__wrapper">
+    <LayoutWrapper class="box-x">
       <nav>
         <ul class="box-x">
           <li>

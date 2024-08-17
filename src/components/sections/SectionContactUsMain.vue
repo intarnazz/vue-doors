@@ -38,7 +38,7 @@ const licks = ref([
 
 <template>
   <section class="contact box-x">
-    <div class="box-y contact__wrapper flex">
+    <aside class="box-y contact__wrapper flex">
       <h2 class="sans">Наши <span style="color: #00774d">контакты</span></h2>
       <ul class="box-y">
         <li v-for="(lick, key) in licks" :key="key">
@@ -51,7 +51,7 @@ const licks = ref([
           </a>
         </li>
       </ul>
-    </div>
+    </aside>
     <iframe
       class="map"
       src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae2ff0a6948c4186f54386ce66dcc329d251be0e334d3b97847d7185c2f290866&amp;source=constructor"

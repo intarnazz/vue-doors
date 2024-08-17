@@ -9,7 +9,9 @@ const specialRouteClass = 'special-wrapper'
 const route = useRoute()
 
 const wrapperClass = computed(() => {
-  return route.path === '/contact-us' ? specialRouteClass : defaultWrapperClass
+  return route.path === '/contact-us' || route.path === '/catalog'
+    ? specialRouteClass
+    : defaultWrapperClass
 })
 
 // watchEffect(() => {
