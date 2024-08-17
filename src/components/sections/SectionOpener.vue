@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
 
 <template>
   <section class="opener">
@@ -7,7 +9,8 @@
     <h2 class="sans">
       Откройте для себя разнообразие дверей и уникальных решений для вашего интерьера
     </h2>
-    <button class="button">Свяжитесь с нами</button>
+
+    <RouterLink :to="{ name: 'contact' }" class="button">Свяжитесь с нами</RouterLink>
   </section>
 </template>
 

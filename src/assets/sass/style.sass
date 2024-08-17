@@ -89,11 +89,16 @@ input
 input:focus
   outline: none
 
+input[type="search"]::-webkit-search-cancel-button 
+  -webkit-appearance: none
+  appearance: none
+
 button
   background: none
   cursor: pointer
   color: $textColor
   border: none
+  user-select: none
 
 button:focus
   outline: none
@@ -101,6 +106,7 @@ button:focus
 a
   color: $textColor
   text-decoration: none
+  user-select: none
 
 $box-shadow: 0 0 20px hsl(133,99%,74%)
 

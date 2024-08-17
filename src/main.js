@@ -15,11 +15,16 @@ createApp(App).use(router).mount('#app')
 // [X] -  цвет выделения
 // [X] -  контакты
 // [X] -  контакты fix
-// [ ] -  каталог
-// [ ] -  запретить выделение
+// [X] -  каталог
+// [X] -  запретить выделение
 // [ ] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
-// [ ] -  Layout page
-// [ ] -  Too Many Requests
-// [ ] -  search fix
+// [X] -  Layout page
+// [X] -  Too Many Requests
+// [X] -  search fix
 // [ ] -  php contact
+// [X] -  button index
+// [ ] -  catalog pagin
+// [ ] -  filters
+// [ ] -  catalog aside component
+// [ ] -  error image

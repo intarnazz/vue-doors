@@ -54,9 +54,9 @@ const licks = ref([
     </aside>
     <iframe
       class="map"
-      src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae2ff0a6948c4186f54386ce66dcc329d251be0e334d3b97847d7185c2f290866&amp;source=constructor"
-      width="565"
-      height="719"
+      src="https://yandex.ru/map-widget/v1/?um=constructor%3A6a73399beb36e811be018ffc8a37948dbda7a2343a0360880c897a104d418825&amp;source=constructor"
+      width="500"
+      height="400"
       frameborder="0"
     ></iframe>
   </section>

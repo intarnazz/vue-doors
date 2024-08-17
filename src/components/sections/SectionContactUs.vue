@@ -7,7 +7,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
     <LayoutWrapper class="contacts__wrapper">
       <h2 class="source">Свяжитесь с нами и найдите идеальное решение</h2>
       <p class="sans">Свяжитесь с нами, чтобы узнать больше и получить консультацию</p>
-      <button class="button">Свяжитесь с нами</button>
+      <RouterLink :to="{ name: 'contact' }" class="button">Свяжитесь с нами</RouterLink>
     </LayoutWrapper>
   </section>
 </template>
