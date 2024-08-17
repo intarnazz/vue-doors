@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/PageHome.vue'
 import Сontacts from '@/pages/PageContact.vue'
+import Catalog from '@/pages/PageCatalog.vue'
 
 // import {
 //   ForecastGetContent,
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/contact-us',
       name: 'contact',
       component: Сontacts
+    },
+    {
+      path: '/catalog',
+      name: 'catalog',
+      component: Catalog
     }
 
     // {

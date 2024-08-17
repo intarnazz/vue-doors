@@ -8,10 +8,12 @@ import { RouterLink } from 'vue-router'
   <header class="header box-shadow">
     <LayoutWrapper class="box-x header__wrapper">
       <nav class="flex box-x">
-        <RouterLink :to="{ name: 'contact' }">Каталог</RouterLink>
-        <p>Контакты</p>
+        <RouterLink :to="{ name: 'catalog' }">Каталог</RouterLink>
+        <RouterLink :to="{ name: 'contact' }">Контакты</RouterLink>
       </nav>
-      <img src="" alt="LOGO" />
+      <RouterLink :to="{ name: 'home' }">
+        <img src="" alt="LOGO" />
+      </RouterLink>
       <SearchComponent class="flex" />
     </LayoutWrapper>
   </header>
