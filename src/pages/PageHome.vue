@@ -4,7 +4,7 @@ import SectionOpener from '@/components/sections/SectionOpener.vue'
 import SectionContacts from '@/components/sections/SectionContactUs.vue'
 import SectionDoors from '@/components/sections/SectionDoors.vue'
 import SectionDoorsSliderNonTarget from '@/components/sections/SectionDoorsSliderNonTarget.vue'
-import MainFooter from '@/layout/footer/MainFooter.vue'
+import FooterMain from '@/layout/footer/FooterMain.vue'
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
     </LayoutWrapper>
     <SectionContacts style="width: 100%;" />
   </main>
-  <MainFooter />
+  <FooterMain />
 </template>
 
 <style lang="sass" scoped>

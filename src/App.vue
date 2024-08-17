@@ -1,5 +1,5 @@
 <script setup>
-import MainHeader from '@/layout/header/MainHeader.vue'
+import HeaderMain from '@/layout/header/HeaderMain.vue'
 // import { useRoute } from 'vue-router'
 // import { watchEffect } from 'vue'
 
@@ -16,7 +16,7 @@ import MainHeader from '@/layout/header/MainHeader.vue'
 </script>
 
 <template>
-  <MainHeader />
+  <HeaderMain />
   <RouterView />
 </template>
 

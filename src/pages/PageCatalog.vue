@@ -1,6 +1,6 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import MainFooter from '@/layout/footer/MainFooter.vue'
+import FooterMain from '@/layout/footer/FooterMain.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import MainFooter from '@/layout/footer/MainFooter.vue'
       <h1>PageCatalog</h1>
     </LayoutWrapper>
   </main>
-  <MainFooter />
+  <FooterMain />
 </template>
 
 <style lang="sass" scoped>
