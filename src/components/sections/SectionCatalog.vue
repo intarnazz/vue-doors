@@ -33,7 +33,7 @@ onMounted(async () => {
       </ul>
     </aside>
     <div class="catalog__content catalog__grid">
-      <ComponentDoors :start="0" :end="12" />
+      <ComponentDoors :start="0" :end="12" :doorStyle="'mini'" />
     </div>
   </section>
 </template>

@@ -28,3 +28,7 @@ createApp(App).use(router).mount('#app')
 // [ ] -  filters
 // [ ] -  catalog aside component
 // [ ] -  error image
+// [ ] -  загрузка в header
+// [ ] -  figma index
+// [ ] -  php Door:: folow (int)
+// [ ] -  search ani
