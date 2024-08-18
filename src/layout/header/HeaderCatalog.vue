@@ -28,6 +28,7 @@ import { RouterLink } from 'vue-router'
   align-items: center
   border-bottom: 1px solid #d4d4d4
   background-color: #f9f9f9
+  width: 100%
   & nav
     & ul 
       gap: 1rem
