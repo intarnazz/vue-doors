@@ -1,23 +1,53 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { GetDoors } from '@/api/api.js'
 import { title, price } from '@/utilte/utilte.js'
 
 const API_URL = import.meta.env.VITE_API_URL
-const props = defineProps(['start', 'end', 'doorStyle'])
-const doors = ref({})
+const props = defineProps(['start', 'end', 'doorStyle', 'paging'])
+const doors = ref([])
+const limit = ref(null)
+const offset = ref(null)
+const totalCount = ref(null)
+const loding = ref(true)
 
 const start = computed(() => {
-  return props.start ? props.start : 0
+  return (offset.value ?? props.start) ? (offset.value ?? props.start) : 0
 })
 
 const end = computed(() => {
-  return props.end ? props.end : 6
+  return (limit.value ?? props.end) ? (limit.value ?? props.end) : 6
 })
 
-onMounted(async () => {
+async function init() {
+  loding.value = true
   const res = await GetDoors(start.value, end.value)
-  doors.value = res.data
+  doors.value = [...doors.value, ...res.data]
+  offset.value = res.pagingInfo.limit
+  limit.value = 8
+  totalCount.value = res.pagingInfo.totalCount
+  loding.value = false
+}
+
+function handleScroll() {
+  if (totalCount.value > offset.value && loding.value === false) {
+    const scrollPosition = window.scrollY + window.innerHeight
+    const bottomPosition = document.documentElement.scrollHeight
+    if (scrollPosition + 500 >= bottomPosition) {
+      init()
+    }
+  }
+}
+
+onMounted(async () => {
+  init()
+  if (props.paging === true) {
+    window.addEventListener('scroll', handleScroll)
+  }
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -91,8 +121,6 @@ onMounted(async () => {
       &:last-child
         border-top-right-radius: 20px
 
-
-
 .mini
   &.door
     &__item
@@ -109,13 +137,11 @@ onMounted(async () => {
                 font-size: 1.6rem
           &__image-gradient
             opacity: .5
-
   & .door
     &__info-row
       & p
         &:first-child
           font-weight: 500
-
     &__info-wrapper
       transition: .3s
       padding: .5rem 0
@@ -125,7 +151,6 @@ onMounted(async () => {
         &:first-child
           font-size: 1rem
           font-weight: 500
-
     &__image-wrapper
       position: relative
       & img
@@ -133,7 +158,6 @@ onMounted(async () => {
           border-bottom-left-radius:  20px
         &:last-child
           border-bottom-right-radius: 20px
-
     &__image-gradient
       background: linear-gradient(to bottom, #00000000, #000000ff)
       position: absolute
