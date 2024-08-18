@@ -42,6 +42,9 @@ onMounted(async () => {
 .catalog
   align-items: flex-start
   gap: 3rem
+  &__filters
+    position: sticky
+    top: 4rem
   & ul
     gap: 1rem
     & li

@@ -55,34 +55,36 @@ onUnmounted(() => {
   <div
     v-for="(door, key) in doors"
     :key="key"
+    class="hover"
     :class="{ mini: props.doorStyle === 'mini' }"
-    class="door__item hover box-y"
   >
-    <div class="door__image-wrapper box-x">
-      <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
-      <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
-      <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
-    </div>
-    <div class="box-y flex door__info-wrapper">
-      <div class="box-x door__info-row flex">
-        <p>
-          {{ title(door.name) }}
-        </p>
-        <p>
-          {{ price(door.price) }}
-        </p>
+    <div class="door__item box-y">
+      <div class="door__image-wrapper box-x">
+        <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
+        <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
+        <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
       </div>
-      <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
-        <p>Бренд:</p>
-        <p>
-          {{ title(door.brand.name) }}
-        </p>
-      </div>
-      <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
-        <p>Материал:</p>
-        <p>
-          {{ title(door.material.name) }}
-        </p>
+      <div class="box-y flex door__info-wrapper">
+        <div class="box-x door__info-row flex">
+          <p>
+            {{ title(door.name) }}
+          </p>
+          <p>
+            {{ price(door.price) }}
+          </p>
+        </div>
+        <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
+          <p>Бренд:</p>
+          <p>
+            {{ title(door.brand.name) }}
+          </p>
+        </div>
+        <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
+          <p>Материал:</p>
+          <p>
+            {{ title(door.material.name) }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -122,22 +124,22 @@ onUnmounted(() => {
         border-top-right-radius: 20px
 
 .mini
-  &.door
-    &__item
-      box-shadow: none
-      font-weight: 500
-      &:hover
-        & .door
-          &__info-wrapper
-            margin: -60px 0 60px
-            padding: .5rem 1rem
-            color: #fff
-            & div
-              &:first-child
-                font-size: 1.6rem
-          &__image-gradient
-            opacity: .5
+  &.hover
+    &:hover
+      & .door
+        &__info-wrapper
+          margin: -60px 0 60px
+          padding: .5rem 1rem
+          color: #fff
+          & div
+            &:first-child
+              font-size: 1.6rem
+        &__image-gradient
+          opacity: .5
   & .door
+    &__item
+        box-shadow: none
+        font-weight: 500
     &__info-row
       & p
         &:first-child

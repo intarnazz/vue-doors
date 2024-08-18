@@ -21,6 +21,9 @@ import { RouterLink } from 'vue-router'
 
 <style lang="sass" scoped>
 .header
+  position: sticky
+  top: 0
+  z-index: 2
   font-size: 13px
   padding: 1rem 0
   display: flex
