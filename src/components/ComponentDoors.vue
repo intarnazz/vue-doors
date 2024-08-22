@@ -1,11 +1,13 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { GetDoors } from '@/api/api.js'
+import SectionDoor from '@/components/sections/SectionDoor.vue'
 import { title, price } from '@/utilte/utilte.js'
 
 const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['start', 'end', 'doorStyle', 'paging'])
 const doors = ref([])
+const door = ref(null)
 const limit = ref(null)
 const offset = ref(null)
 const totalCount = ref(null)
@@ -44,45 +46,59 @@ onMounted(async () => {
   if (props.paging === true) {
     window.addEventListener('scroll', handleScroll)
   }
+  // document.body.style = 'overflow: hidden;'
 })
 
 onUnmounted(() => {
+  document.body.style = 'overflow: auto;'
   window.removeEventListener('scroll', handleScroll)
 })
+
+function openDoor(value) {
+  door.value = value
+  document.body.style = 'overflow: hidden;'
+}
+
+function closeDoor() {
+  door.value = null
+  document.body.style = 'overflow: auto;'
+}
 </script>
 
 <template>
+  <SectionDoor @close="closeDoor" v-if="door != null" :door="door" />
   <div
-    v-for="(door, key) in doors"
+    @click="openDoor(value)"
+    v-for="(value, key) in doors"
     :key="key"
     class="hover"
     :class="{ mini: props.doorStyle === 'mini' }"
   >
     <div class="door__item box-y">
       <div class="door__image-wrapper box-x">
-        <img :src="`${API_URL}image/${door.image_front.id}`" :alt="door.image_front.alt" />
+        <img :src="`${API_URL}image/${value.image_front.id}`" :alt="value.image_front.alt" />
         <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
-        <img :src="`${API_URL}image/${door.image_back.id}`" :alt="door.image_back.alt" />
+        <img :src="`${API_URL}image/${value.image_back.id}`" :alt="value.image_back.alt" />
       </div>
       <div class="box-y flex door__info-wrapper">
         <div class="box-x door__info-row flex">
           <p>
-            {{ title(door.name) }}
+            {{ title(value.name) }}
           </p>
           <p>
-            {{ price(door.price) }}
+            {{ price(value.price) }}
           </p>
         </div>
         <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
           <p>Бренд:</p>
           <p>
-            {{ title(door.brand.name) }}
+            {{ title(value.brand.name) }}
           </p>
         </div>
         <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
           <p>Материал:</p>
           <p>
-            {{ title(door.material.name) }}
+            {{ title(value.material.name) }}
           </p>
         </div>
       </div>
@@ -105,6 +121,7 @@ onUnmounted(() => {
         font-size: 1.7rem
         font-weight: 700
   &__item
+    cursor: pointer
     display: flex
     width: 100%
     background-color: #fff

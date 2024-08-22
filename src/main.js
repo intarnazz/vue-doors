@@ -17,6 +17,8 @@ createApp(App).use(router).mount('#app')
 // [X] -  контакты fix
 // [X] -  каталог
 // [X] -  запретить выделение
+// [ ] -  door page
+// [ ] -  door pagin L R
 // [ ] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
 // [X] -  Layout page
@@ -31,3 +33,5 @@ createApp(App).use(router).mount('#app')
 // [ ] -  загрузка в header
 // [ ] -  php Door:: folow (int)
 // [ ] -  search ani
+// [ ] -  svg Door loding
+// [ ] -  UP button

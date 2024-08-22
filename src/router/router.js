@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/PageHome.vue'
 import Сontacts from '@/pages/PageContact.vue'
 import Catalog from '@/pages/PageCatalog.vue'
+import Door from '@/pages/PageDoor.vue'
 
 // import {
 //   ForecastGetContent,
@@ -29,6 +30,12 @@ const router = createRouter({
       path: '/catalog',
       name: 'catalog',
       component: Catalog
+    },
+    {
+      path: '/door/:id',
+      name: 'door',
+      component: Door,
+      props: true
     }
 
     // {
