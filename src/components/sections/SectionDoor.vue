@@ -5,7 +5,7 @@ import { title, price } from '@/utilte/utilte.js'
 const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['door'])
 const emit = defineEmits(['close'])
-const height = ref(document.body.scrollHeight)
+const height = ref(document.body.scrollHeight + 1000)
 
 function colse() {
   emit('close')
@@ -187,10 +187,9 @@ h1
     position: absolute
     top: 0
     left: 0
-    z-index: 2
+    z-index: 3
     background-color: rgba(0, 0, 0, .5)
     width: 100%
-
 
 @keyframes animation_relative
   0%

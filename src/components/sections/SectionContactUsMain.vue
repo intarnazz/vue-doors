@@ -1,34 +1,38 @@
 <script setup>
-// import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { ref } from 'vue'
+import phone from '@/assets/icons/link/phone.svg'
+import mail from '@/assets/icons/link/mail.svg'
+import vk from '@/assets/icons/link/VK.svg'
+import telegram from '@/assets/icons/link/Telegram.svg'
+import instagram from '@/assets/icons/link/Instagram.svg'
 
 const licks = ref([
   {
-    img: 'src/assets/icons/link/phone.svg',
+    img: phone,
     name: 'Телефон',
     text: '8 (900) 480-78-44',
     href: 'http://localhost:5173/contact-us'
   },
   {
-    img: 'src/assets/icons/link/mail.svg',
+    img: mail,
     name: 'Email',
     text: 'misha.vidiakin@gmail.com',
     href: 'http://localhost:5173/contact-us'
   },
   {
-    img: 'src/assets/icons/link/VK.svg',
+    img: vk,
     name: 'VK',
     text: '@literature_jenena',
     href: 'http://localhost:5173/contact-us'
   },
   {
-    img: 'src/assets/icons/link/Telegram.svg',
+    img: telegram,
     name: 'Telegram',
     text: '@Ortodox',
     href: 'http://localhost:5173/contact-us'
   },
   {
-    img: 'src/assets/icons/link/Instagram.svg',
+    img: instagram,
     name: 'Instagram',
     text: '@NotNot',
     href: 'http://localhost:5173/contact-us'
