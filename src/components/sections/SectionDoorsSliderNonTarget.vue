@@ -86,7 +86,7 @@ setInterval(() => {
     height: 100%
     border-radius: 23px
     z-index: 2
-    background: linear-gradient(hsla(0, 0, 0, 0), hsla(0, 0, 0, .7))
+    background: linear-gradient(hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, .7))
     position: absolute
 
   &__info-wrapper
