@@ -1,6 +1,11 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import { RouterLink } from 'vue-router'
+
+const emit = defineEmits(['mod'])
+
+function modChange(value) {
+  emit('mod', value)
+}
 </script>
 
 <template>
@@ -8,11 +13,9 @@ import { RouterLink } from 'vue-router'
     <LayoutWrapper class="box-x">
       <nav>
         <ul class="box-x">
-          <li>
-            <RouterLink :to="{ name: 'catalog' }">Каталог</RouterLink>
-          </li>
-          <li>История просмотра</li>
-          <li>Избранное</li>
+          <li @click="modChange('catalog')">Каталог</li>
+          <li @click="modChange('history')">История просмотра</li>
+          <li @click="modChange('favorite')">Избранное</li>
         </ul>
       </nav>
     </LayoutWrapper>
@@ -33,6 +36,8 @@ import { RouterLink } from 'vue-router'
   background-color: #f9f9f9
   width: 100%
   & nav
-    & ul 
+    & ul
       gap: 1rem
+      & li 
+        cursor: pointer
 </style>

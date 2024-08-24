@@ -1,17 +1,22 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { GetDoors } from '@/api/api.js'
 import SectionDoor from '@/components/sections/SectionDoor.vue'
 import { title, price } from '@/utilte/utilte.js'
+import { save, get } from '@/localStorage/localStorage.js'
 
 const API_URL = import.meta.env.VITE_API_URL
-const props = defineProps(['start', 'end', 'doorStyle', 'paging'])
+const props = defineProps(['start', 'end', 'doorStyle', 'paging', 'mod'])
 const doors = ref([])
 const door = ref(null)
 const limit = ref(null)
 const offset = ref(null)
 const totalCount = ref(null)
 const loding = ref(true)
+
+const mod = computed(() => {
+  return props.mod && props.mod != 'catalog' ? get(props.mod) : ''
+})
 
 const start = computed(() => {
   return (offset.value ?? props.start) ? (offset.value ?? props.start) : 0
@@ -23,7 +28,7 @@ const end = computed(() => {
 
 async function init() {
   loding.value = true
-  const res = await GetDoors(start.value, end.value)
+  const res = await GetDoors(start.value, end.value, mod.value)
   doors.value = [...doors.value, ...res.data]
   offset.value = res.pagingInfo.limit
   limit.value = 8
@@ -46,7 +51,6 @@ onMounted(async () => {
   if (props.paging === true) {
     window.addEventListener('scroll', handleScroll)
   }
-  // document.body.style = 'overflow: hidden;'
 })
 
 onUnmounted(() => {
@@ -57,12 +61,23 @@ onUnmounted(() => {
 function openDoor(value) {
   door.value = value
   document.body.style = 'overflow: hidden;'
+  save('history', door.value.id)
 }
 
 function closeDoor() {
   door.value = null
   document.body.style = 'overflow: auto;'
 }
+
+function modChange() {
+  doors.value = []
+  limit.value = null
+  offset.value = null
+  totalCount.value = null
+  init()
+}
+
+watch(() => props.mod, modChange)
 </script>
 
 <template>

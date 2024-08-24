@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
+import { save, get } from '@/localStorage/localStorage.js'
+
 
 const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['door'])
@@ -50,7 +52,7 @@ function keyFormat(key) {
             </p>
             <div class="box-x door__content">
               <div class="door__content-button-wrapper">
-                <div class="button">
+                <div @click="save('favorite', props.door.id)" class="button">
                   <svg
                     class=""
                     width="24"

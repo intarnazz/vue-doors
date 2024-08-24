@@ -3,6 +3,7 @@ import ComponentDoors from '@/components/ComponentDoors.vue'
 import { onMounted, ref } from 'vue'
 import { Getfilters } from '@/api/api.js'
 
+const props = defineProps(['mod'])
 const filters = ref({
   brand: [],
   material: []
@@ -33,7 +34,7 @@ onMounted(async () => {
       </ul>
     </aside>
     <div class="catalog__content catalog__grid">
-      <ComponentDoors :start="0" :end="12" :doorStyle="'mini'" :paging="true" />
+      <ComponentDoors :mod="props.mod" :start="0" :end="12" :doorStyle="'mini'" :paging="true" />
     </div>
   </section>
 </template>
