@@ -1,13 +1,18 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
-import { save, get } from '@/localStorage/localStorage.js'
-
+import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
 
 const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['door'])
 const emit = defineEmits(['close'])
 const height = ref(document.body.scrollHeight + 1000)
+const isFavorite = ref(false)
+
+onMounted(() => {
+  isFavorite.value = get('favorite').includes(props.door.id)
+  console.log(isFavorite.value)
+})
 
 function colse() {
   emit('close')
@@ -22,6 +27,16 @@ function keyFormat(key) {
     default:
       return ''
   }
+}
+
+function save(key, value) {
+  isFavorite.value = true
+  ls_save(key, value)
+}
+
+function del(key, value) {
+  isFavorite.value = false
+  ls_del(key, value)
 }
 </script>
 
@@ -52,7 +67,13 @@ function keyFormat(key) {
             </p>
             <div class="box-x door__content">
               <div class="door__content-button-wrapper">
-                <div @click="save('favorite', props.door.id)" class="button">
+                <div
+                  @click="
+                    isFavorite ? del('favorite', props.door.id) : save('favorite', props.door.id)
+                  "
+                  :class="{ favorite: isFavorite }"
+                  class="button"
+                >
                   <svg
                     class=""
                     width="24"
@@ -192,6 +213,9 @@ h1
     z-index: 3
     background-color: rgba(0, 0, 0, .5)
     width: 100%
+
+.favorite svg
+  fill: hsl(133,59%,50%)
 
 @keyframes animation_relative
   0%

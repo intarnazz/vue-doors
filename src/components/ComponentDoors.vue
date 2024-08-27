@@ -28,11 +28,13 @@ const end = computed(() => {
 
 async function init() {
   loding.value = true
-  const res = await GetDoors(start.value, end.value, mod.value)
-  doors.value = [...doors.value, ...res.data]
-  offset.value = res.pagingInfo.limit
-  limit.value = 8
-  totalCount.value = res.pagingInfo.totalCount
+  if (typeof mod.value !== typeof [] || mod.value.length > 0) {
+    const res = await GetDoors(start.value, end.value, mod.value)
+    doors.value = [...doors.value, ...res.data]
+    offset.value = res.pagingInfo.limit
+    limit.value = 8
+    totalCount.value = res.pagingInfo.totalCount
+  }
   loding.value = false
 }
 

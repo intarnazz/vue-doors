@@ -35,3 +35,5 @@ createApp(App).use(router).mount('#app')
 // [ ] -  search ani
 // [ ] -  svg Door loding
 // [ ] -  UP button
+// [ ] -  иконка карзинки в door>favorite>svg
+// [ ] -  mod url
