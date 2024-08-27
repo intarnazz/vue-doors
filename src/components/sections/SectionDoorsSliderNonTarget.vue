@@ -76,8 +76,8 @@ setInterval(() => {
 .doorsSliderNonTarget
   &__slider-box
     width: 99.5dvw
-    padding: 2rem 0 
-    margin: -2rem 0 
+    padding: 2rem 0
+    margin: -2rem 0
     overflow: hidden
   &__wrapper
     gap: 40px
