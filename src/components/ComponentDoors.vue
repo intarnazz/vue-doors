@@ -44,7 +44,7 @@ async function init() {
 }
 
 function handleScroll(skip = false) {
-  if (totalCount.value > offset.value && loding.value === false) {
+  if (totalCount.value > offset.value && loding.value === false && props.paging) {
     const scrollPosition = window.scrollY + window.innerHeight
     const bottomPosition = document.documentElement.scrollHeight
     if (scrollPosition + 500 >= bottomPosition || skip) {
