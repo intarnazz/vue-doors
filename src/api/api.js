@@ -1,12 +1,12 @@
-import * as GetArrModel from './get/GetArr.js'
-const GetArr = GetArrModel.GetArr
+import * as GetArrModel from './get/Get.js'
+const Get = GetArrModel.Get
 
 export const GetDoors = async (skip = 0, take = 6, ids = []) => {
-  return await GetArr('door', skip, take, ids)
+  return await Get('door', skip, take, ids)
 }
 export const GetDoor = async (id = 1) => {
-  return await GetArr(`door/${id}`)
+  return await Get(`door/${id}`)
 }
 export const Getfilters = async (skip = 0, take = 6) => {
-  return await GetArr('door/filters', skip, take)
+  return await Get('door/filters', skip, take)
 }

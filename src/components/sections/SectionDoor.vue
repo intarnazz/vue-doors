@@ -1,17 +1,38 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
+import { GetDoor } from '@/api/api.js'
+import { RouterLink } from 'vue-router'
 
 const API_URL = import.meta.env.VITE_API_URL
-const props = defineProps(['door'])
+const props = defineProps(['door', 'id'])
 const emit = defineEmits(['close'])
 const height = ref(document.body.scrollHeight + 1000)
 const isFavorite = ref(false)
+const door_api = ref({})
+const loding = ref(true)
 
-onMounted(() => {
-  isFavorite.value = get('favorite').includes(props.door.id)
-  console.log(isFavorite.value)
+const door = computed(() => {
+  return props.id ? door_api.value : props.door
+})
+
+async function DoorGet() {
+  const res = await GetDoor(props.id)
+  door_api.value = res.data
+}
+
+async function init() {
+  loding.value = true
+  if (props.id) {
+    await DoorGet()
+  }
+  loding.value = false
+  isFavorite.value = get('favorite').includes(door.value.id)
+}
+
+onMounted(async () => {
+  init()
 })
 
 function colse() {
@@ -41,10 +62,15 @@ function del(key, value) {
 </script>
 
 <template>
-  <section :style="`height: ${height}px`" class="door__wrapper">
+  <section
+    v-if="!loding"
+    :style="!props.id ? `height: ${height}px` : ''"
+    :class="{ 'single-page': props.id }"
+    class="door__wrapper"
+  >
     <div class="door__sticky">
       <div @click="colse" class="door__relative box-x">
-        <div class="colse">
+        <div v-if="!props.id" class="colse">
           <svg
             fill="#fff"
             width="24"
@@ -63,14 +89,26 @@ function del(key, value) {
         <div @click.stop="" class="door">
           <div class="box-y gap2">
             <p>
-              каталог / <span style="font-weight: 600">{{ title(props.door.name) }}</span>
+              каталог / <span style="font-weight: 600">{{ title(door.name) }}</span>
             </p>
             <div class="box-x door__content">
-              <div class="door__content-button-wrapper">
+              <div class="door__content-button-wrapper box-x gap">
+                <RouterLink :to="{ name: 'door', params: { id: door.id } }" class="button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#e8eaed"
+                  >
+                    <path
+                      d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z"
+                    />
+                  </svg>
+                </RouterLink>
+
                 <div
-                  @click="
-                    isFavorite ? del('favorite', props.door.id) : save('favorite', props.door.id)
-                  "
+                  @click="isFavorite ? del('favorite', door.id) : save('favorite', door.id)"
                   :class="{ favorite: isFavorite }"
                   class="button"
                 >
@@ -93,29 +131,29 @@ function del(key, value) {
               <div class="image__wrapper box-x">
                 <img
                   class="image"
-                  :src="`${API_URL}image/${props.door.image_front.id}`"
-                  :alt="props.door.image_front.alt"
+                  :src="`${API_URL}image/${door.image_front.id}`"
+                  :alt="door.image_front.alt"
                 />
                 <img
                   class="image"
-                  :src="`${API_URL}image/${props.door.image_back.id}`"
-                  :alt="props.door.image_back.alt"
+                  :src="`${API_URL}image/${door.image_back.id}`"
+                  :alt="door.image_back.alt"
                 />
               </div>
               <div class="box-y">
-                <h2 class="">{{ title(props.door.name) }}</h2>
+                <h2 class="">{{ title(door.name) }}</h2>
                 <div class="box-x door__info">
                   <div class="box-y gap">
                     <p>Цена:</p>
-                    <template v-for="(value, key) in props.door" :key="key">
+                    <template v-for="(value, key) in door" :key="key">
                       <p v-if="typeof value === typeof {} && value.name" class="">
                         {{ title(keyFormat(key)) }}:
                       </p>
                     </template>
                   </div>
                   <div class="box-y gap">
-                    <p>{{ price(props.door.price) }}</p>
-                    <template v-for="(value, key) in props.door" :key="key">
+                    <p>{{ price(door.price) }}</p>
+                    <template v-for="(value, key) in door" :key="key">
                       <p v-if="typeof value === typeof {} && value.name" class="">
                         {{ title(value.name) }}
                       </p>
@@ -216,6 +254,28 @@ h1
 
 .favorite svg
   fill: hsl(133,59%,50%)
+
+.single-page
+  &.door
+    &__wrapper
+      position: relative
+      background: none
+
+.single-page
+  & .colse
+    display: none
+  & .door
+    padding: 0 0
+    cursor: auto
+    overflow: auto
+    height: auto
+    &__sticky
+      position: relative
+    &__relative
+      cursor: auto
+      position: relative
+      animation: none
+
 
 @keyframes animation_relative
   0%

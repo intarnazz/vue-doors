@@ -17,7 +17,7 @@ createApp(App).use(router).mount('#app')
 // [X] -  контакты fix
 // [X] -  каталог
 // [X] -  запретить выделение
-// [ ] -  door page
+// [X] -  door page
 // [ ] -  door pagin L R
 // [ ] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
@@ -37,3 +37,4 @@ createApp(App).use(router).mount('#app')
 // [ ] -  UP button
 // [ ] -  иконка карзинки в door>favorite>svg
 // [ ] -  mod url
+// [ ] -  http://localhost:5173/door/{door.name}
