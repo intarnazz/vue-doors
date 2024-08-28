@@ -20,18 +20,18 @@ createApp(App).use(router).mount('#app')
 // [X] -  door page
 // [x] -  door pagin L R
 // [X] -  прогрузка фоток
-// [ ] -  анимация вкладок для header
+// [X] -  анимация вкладок для header
 // [X] -  Layout page
 // [X] -  Too Many Requests
 // [X] -  search fix
+// [ ] -  фильтры
+// [ ] -  калькулятор
 // [ ] -  php contact
 // [X] -  button index
-// [ ] -  catalog pagin
-// [ ] -  filters
+// [X] -  catalog pagin
 // [ ] -  catalog aside component
-// [ ] -  error image
+// [X] -  error image
 // [ ] -  загрузка в header
-// [ ] -  php Door:: folow (int)
 // [ ] -  search ani
 // [ ] -  svg Door loding
 // [ ] -  UP button
