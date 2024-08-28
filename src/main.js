@@ -38,3 +38,4 @@ createApp(App).use(router).mount('#app')
 // [ ] -  иконка карзинки в door>favorite>svg
 // [ ] -  mod url
 // [ ] -  http://localhost:5173/door/{door.name}
+// [ ] -  SectionDoorsSliderNonTarget @click

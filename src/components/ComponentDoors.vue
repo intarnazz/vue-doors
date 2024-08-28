@@ -4,8 +4,8 @@ import { GetDoors } from '@/api/api.js'
 import SectionDoor from '@/components/sections/SectionDoor.vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save, get } from '@/localStorage/localStorage.js'
+import ComponentImg from '@/components/ComponentImg.vue'
 
-const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['start', 'end', 'doorStyle', 'paging', 'mod'])
 const doors = ref([])
 const door = ref(null)
@@ -118,9 +118,9 @@ watch(() => props.mod, modChange)
   >
     <div class="door__item box-y">
       <div class="door__image-wrapper box-x">
-        <img :src="`${API_URL}image/${value.image_front.id}`" :alt="value.image_front.alt" />
+        <ComponentImg class="image" :src="value.image_front.id" :alt="value.image_front.alt" />
         <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
-        <img :src="`${API_URL}image/${value.image_back.id}`" :alt="value.image_back.alt" />
+        <ComponentImg class="image" :src="value.image_back.id" :alt="value.image_back.alt" />
       </div>
       <div class="box-y flex door__info-wrapper">
         <div class="box-x door__info-row flex">
@@ -173,7 +173,7 @@ watch(() => props.mod, modChange)
     width: 100%
     background-color: #000
     border-radius: 20px
-    & img
+    & .image
       width: 50%
       height: 355px
       object-fit: cover
@@ -214,7 +214,7 @@ watch(() => props.mod, modChange)
           font-weight: 500
     &__image-wrapper
       position: relative
-      & img
+      & .image
         &:first-child
           border-bottom-left-radius:  20px
         &:last-child
