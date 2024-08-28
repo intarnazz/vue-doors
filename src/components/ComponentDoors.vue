@@ -9,6 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['start', 'end', 'doorStyle', 'paging', 'mod'])
 const doors = ref([])
 const door = ref(null)
+const door_key = ref(NaN)
 const limit = ref(null)
 const offset = ref(null)
 const totalCount = ref(null)
@@ -26,6 +27,10 @@ const end = computed(() => {
   return (limit.value ?? props.end) ? (limit.value ?? props.end) : 6
 })
 
+const doors_len = computed(() => {
+  return doors.value.length
+})
+
 async function init() {
   loding.value = true
   if (typeof mod.value !== typeof [] || mod.value.length > 0) {
@@ -38,11 +43,11 @@ async function init() {
   loding.value = false
 }
 
-function handleScroll() {
+function handleScroll(skip = false) {
   if (totalCount.value > offset.value && loding.value === false) {
     const scrollPosition = window.scrollY + window.innerHeight
     const bottomPosition = document.documentElement.scrollHeight
-    if (scrollPosition + 500 >= bottomPosition) {
+    if (scrollPosition + 500 >= bottomPosition || skip) {
       init()
     }
   }
@@ -60,7 +65,8 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-function openDoor(value) {
+function openDoor(key, value) {
+  door_key.value = key
   door.value = value
   document.body.style = 'overflow: hidden;'
   save('history', door.value.id)
@@ -79,13 +85,32 @@ function modChange() {
   init()
 }
 
+function left() {
+  door_key.value--
+  openDoor(door_key.value, doors.value[door_key.value])
+}
+
+function right() {
+  door_key.value++
+  openDoor(door_key.value, doors.value[door_key.value])
+}
+
 watch(() => props.mod, modChange)
 </script>
 
 <template>
-  <SectionDoor @close="closeDoor" v-if="door != null" :door="door" />
+  <SectionDoor
+    @handleScroll="handleScroll"
+    @close="closeDoor"
+    @left="left"
+    @right="right"
+    v-if="door != null"
+    :door="door"
+    :doorKey="door_key"
+    :doorsLen="doors_len"
+  />
   <div
-    @click="openDoor(value)"
+    @click="openDoor(key, value)"
     v-for="(value, key) in doors"
     :key="key"
     class="hover"

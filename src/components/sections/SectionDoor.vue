@@ -1,13 +1,13 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, onUnmounted, watch } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
 import { GetDoor } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 
 const API_URL = import.meta.env.VITE_API_URL
-const props = defineProps(['door', 'id'])
-const emit = defineEmits(['close'])
+const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
+const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
 const height = ref(document.body.scrollHeight + 1000)
 const isFavorite = ref(false)
 const door_api = ref({})
@@ -17,14 +17,22 @@ const door = computed(() => {
   return props.id ? door_api.value : props.door
 })
 
+const isLeft = computed(() => {
+  return props.doorKey > 0
+})
+
+const isRight = computed(() => {
+  return props.doorsLen - 1 > props.doorKey
+})
+
 async function DoorGet() {
   const res = await GetDoor(props.id)
   door_api.value = res.data
 }
 
 async function init() {
-  loding.value = true
   if (props.id) {
+    loding.value = true
     await DoorGet()
   }
   loding.value = false
@@ -33,6 +41,13 @@ async function init() {
 
 onMounted(async () => {
   init()
+  if (!props.id) {
+    document.addEventListener('keydown', keyDown)
+  }
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', keyDown)
 })
 
 function colse() {
@@ -59,6 +74,35 @@ function del(key, value) {
   isFavorite.value = false
   ls_del(key, value)
 }
+
+function left() {
+  if (isLeft.value) {
+    emit('left')
+  }
+}
+
+function right() {
+  if (isRight.value) {
+    emit('right')
+  } else {
+    emit('handleScroll', true)
+  }
+}
+
+function keyDown(e) {
+  switch (e.key) {
+    case 'ArrowLeft':
+      left()
+      break
+    case 'ArrowRight':
+      right()
+      break
+    default:
+      break
+  }
+}
+
+watch(() => props.door, init)
 </script>
 
 <template>
@@ -86,6 +130,20 @@ function del(key, value) {
             ></path>
           </svg>
         </div>
+        <div @click.stop="left()" v-if="!props.id && isLeft" class="pagin__left pagin flex center">
+          <svg
+            :style="!isLeft ? 'fill: #00000000' : ''"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#e8eaed"
+          >
+            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
+          </svg>
+        </div>
+        <div v-else-if="!isLeft" class="flex"></div>
+
         <div @click.stop="" class="door">
           <div class="box-y gap2">
             <p>
@@ -165,12 +223,42 @@ function del(key, value) {
             <h2></h2>
           </div>
         </div>
+        <div
+          @click.stop="right()"
+          v-if="!props.id && isRight"
+          class="pagin__right pagin flex center"
+        >
+          <svg
+            :style="!isRight ? 'fill: #00000000' : ''"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#e8eaed"
+          >
+            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+          </svg>
+        </div>
+        <div v-else-if="!isRight" class="flex"></div>
       </div>
     </div>
   </section>
 </template>
 
 <style lang="sass" scoped>
+.pagin
+  cursor: pointer
+  padding: 10rem 0
+  & svg
+    width: 2.4rem
+    height: 2.4rem
+    transition: .3s
+  &:hover
+    & svg
+      fill: #fff
+      transform: scale(1.1)
+
+
 .button
   padding: .5rem
   display: flex

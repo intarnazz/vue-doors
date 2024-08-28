@@ -18,7 +18,7 @@ createApp(App).use(router).mount('#app')
 // [X] -  каталог
 // [X] -  запретить выделение
 // [X] -  door page
-// [ ] -  door pagin L R
+// [x] -  door pagin L R
 // [ ] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
 // [X] -  Layout page
