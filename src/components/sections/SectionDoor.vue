@@ -107,7 +107,6 @@ watch(() => props.door, init)
 
 <template>
   <section
-    v-if="!loding"
     :style="!props.id ? `height: ${height}px` : ''"
     :class="{ 'single-page': props.id }"
     class="door__wrapper"
@@ -130,7 +129,12 @@ watch(() => props.door, init)
             ></path>
           </svg>
         </div>
-        <div @click.stop="left()" v-if="!props.id && isLeft" class="pagin__left pagin flex center">
+        <button
+          @click.stop="left()"
+          v-if="!props.id"
+          :style="!isLeft ? 'cursor: auto' : ''"
+          class="pagin__left pagin flex center"
+        >
           <svg
             :style="!isLeft ? 'fill: #00000000' : ''"
             xmlns="http://www.w3.org/2000/svg"
@@ -141,17 +145,20 @@ watch(() => props.door, init)
           >
             <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
           </svg>
-        </div>
-        <div v-else-if="!isLeft" class="flex"></div>
+        </button>
 
         <div @click.stop="" class="door">
           <div class="box-y gap2">
-            <p>
+            <p v-if="!loding">
               каталог / <span style="font-weight: 600">{{ title(door.name) }}</span>
             </p>
             <div class="box-x door__content">
               <div class="door__content-button-wrapper box-x gap">
-                <RouterLink :to="{ name: 'door', params: { id: door.id } }" class="button">
+                <RouterLink
+                  v-if="!loding"
+                  :to="{ name: 'door', params: { id: door.id } }"
+                  class="button"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"
@@ -166,6 +173,7 @@ watch(() => props.door, init)
                 </RouterLink>
 
                 <div
+                  v-if="!loding"
                   @click="isFavorite ? del('favorite', door.id) : save('favorite', door.id)"
                   :class="{ favorite: isFavorite }"
                   class="button"
@@ -189,16 +197,16 @@ watch(() => props.door, init)
               <div class="image__wrapper box-x">
                 <ComponentImg
                   class="image"
-                  :src="door.image_front.id"
-                  :alt="door.image_front.alt"
+                  :src="door.image_front ? door.image_front.id : ''"
+                  :alt="door.image_front ? door.image_front.alt : ''"
                 />
-                <ComponentImg 
-                class="image" 
-                :src="door.image_back.id" 
-                :alt="door.image_back.alt" 
+                <ComponentImg
+                  class="image"
+                  :src="door.image_back ? door.image_back.id : ''"
+                  :alt="door.image_back ? door.image_back.alt : ''"
                 />
               </div>
-              <div class="box-y">
+              <div v-if="!loding" class="box-y">
                 <h2 class="">{{ title(door.name) }}</h2>
                 <div class="box-x door__info">
                   <div class="box-y gap">
@@ -223,9 +231,10 @@ watch(() => props.door, init)
             <h2></h2>
           </div>
         </div>
-        <div
+        <button
           @click.stop="right()"
-          v-if="!props.id && isRight"
+          v-if="!props.id"
+          :style="!isRight ? 'cursor: auto' : ''"
           class="pagin__right pagin flex center"
         >
           <svg
@@ -238,8 +247,7 @@ watch(() => props.door, init)
           >
             <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
           </svg>
-        </div>
-        <div v-else-if="!isRight" class="flex"></div>
+        </button>
       </div>
     </div>
   </section>
@@ -257,7 +265,6 @@ watch(() => props.door, init)
     & svg
       fill: #fff
       transform: scale(1.1)
-
 
 .button
   padding: .5rem
@@ -283,6 +290,8 @@ watch(() => props.door, init)
   padding: 1rem
 
 .image
+  min-width: 12.1875rem
+  min-height: 25.5625rem
   &__wrapper
     margin: 0rem 8rem
 

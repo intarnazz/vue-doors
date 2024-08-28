@@ -19,7 +19,7 @@ createApp(App).use(router).mount('#app')
 // [X] -  запретить выделение
 // [X] -  door page
 // [x] -  door pagin L R
-// [ ] -  прогрузка фоток
+// [X] -  прогрузка фоток
 // [ ] -  анимация вкладок для header
 // [X] -  Layout page
 // [X] -  Too Many Requests
@@ -39,3 +39,4 @@ createApp(App).use(router).mount('#app')
 // [ ] -  mod url
 // [ ] -  http://localhost:5173/door/{door.name}
 // [ ] -  SectionDoorsSliderNonTarget @click
+// [ ] -  UX
