@@ -4,8 +4,8 @@ import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
 import { GetDoor } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
+import ComponentImg from '@/components/ComponentImg.vue'
 
-const API_URL = import.meta.env.VITE_API_URL
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
 const height = ref(document.body.scrollHeight + 1000)
@@ -187,15 +187,15 @@ watch(() => props.door, init)
                 </div>
               </div>
               <div class="image__wrapper box-x">
-                <img
+                <ComponentImg
                   class="image"
-                  :src="`${API_URL}image/${door.image_front.id}`"
+                  :src="door.image_front.id"
                   :alt="door.image_front.alt"
                 />
-                <img
-                  class="image"
-                  :src="`${API_URL}image/${door.image_back.id}`"
-                  :alt="door.image_back.alt"
+                <ComponentImg 
+                class="image" 
+                :src="door.image_back.id" 
+                :alt="door.image_back.alt" 
                 />
               </div>
               <div class="box-y">
@@ -317,7 +317,7 @@ h1
       color: rgba(255,255, 255, .8 )
     & h2
       font-size: 2.25rem
-    & img
+    & .image
       width: 195px
       height: 409px
       object-fit: cover
