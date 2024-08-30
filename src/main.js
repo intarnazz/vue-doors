@@ -40,3 +40,5 @@ createApp(App).use(router).mount('#app')
 // [ ] -  http://localhost:5173/door/{door.name}
 // [ ] -  SectionDoorsSliderNonTarget @click
 // [ ] -  UX
+// [ ] -  love button doors_s
+// [ ] -  ищем магазинчик UX
