@@ -22,4 +22,7 @@ function mudEmit(value) {
   <FooterMain />
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.main
+  gap: 1rem
+</style>

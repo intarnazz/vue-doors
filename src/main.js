@@ -24,7 +24,7 @@ createApp(App).use(router).mount('#app')
 // [X] -  Layout page
 // [X] -  Too Many Requests
 // [X] -  search fix
-// [ ] -  фильтры
+// [X] -  фильтры
 // [ ] -  калькулятор
 // [ ] -  php contact
 // [X] -  button index
@@ -42,3 +42,4 @@ createApp(App).use(router).mount('#app')
 // [ ] -  UX
 // [ ] -  love button doors_s
 // [ ] -  ищем магазинчик UX
+// [ ] -  количесто элментов по фильтрам

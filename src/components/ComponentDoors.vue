@@ -6,7 +6,8 @@ import { title, price } from '@/utilte/utilte.js'
 import { save, get } from '@/localStorage/localStorage.js'
 import ComponentImg from '@/components/ComponentImg.vue'
 
-const props = defineProps(['start', 'end', 'doorStyle', 'paging', 'mod'])
+const response_id = ref(0)
+const props = defineProps(['start', 'end', 'doorStyle', 'paging', 'mod', 'filters'])
 const doors = ref([])
 const door = ref(null)
 const door_key = ref(NaN)
@@ -14,6 +15,17 @@ const limit = ref(null)
 const offset = ref(null)
 const totalCount = ref(null)
 const loding = ref(true)
+
+function _init_clear() {
+  doors.value = []
+  door.value = null
+  door_key.value = NaN
+  limit.value = null
+  offset.value = null
+  totalCount.value = null
+  loding.value = true
+  init()
+}
 
 const mod = computed(() => {
   return props.mod && props.mod != 'catalog' ? get(props.mod) : ''
@@ -33,14 +45,26 @@ const doors_len = computed(() => {
 
 async function init() {
   loding.value = true
+  response_id.value++
   if (typeof mod.value !== typeof [] || mod.value.length > 0) {
-    const res = await GetDoors(start.value, end.value, mod.value)
-    doors.value = [...doors.value, ...res.data]
-    offset.value = res.pagingInfo.limit
-    limit.value = 8
-    totalCount.value = res.pagingInfo.totalCount
+    const res = await GetDoors(
+      start.value,
+      end.value,
+      mod.value,
+      props.filters?.brand.map((i) => i.id),
+      props.filters?.material.map((i) => i.id),
+      response_id.value
+    )
+    if (response_id.value == res.response_id) {
+      doors.value = [...doors.value, ...res.data]
+      offset.value = res.pagingInfo.limit
+      limit.value = 8
+      totalCount.value = res.pagingInfo.totalCount
+    } else {
+      console.log(response_id.value, res.response_id)
+    }
+    loding.value = false
   }
-  loding.value = false
 }
 
 function handleScroll(skip = false) {
@@ -78,11 +102,7 @@ function closeDoor() {
 }
 
 function modChange() {
-  doors.value = []
-  limit.value = null
-  offset.value = null
-  totalCount.value = null
-  init()
+  _init_clear()
 }
 
 function left() {
@@ -95,7 +115,12 @@ function right() {
   openDoor(door_key.value, doors.value[door_key.value])
 }
 
+function filtersChange() {
+  _init_clear()
+}
+
 watch(() => props.mod, modChange)
+watch(() => props.filters, filtersChange)
 </script>
 
 <template>

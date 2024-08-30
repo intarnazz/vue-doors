@@ -1,40 +1,28 @@
 <script setup>
 import ComponentDoors from '@/components/ComponentDoors.vue'
-import { onMounted, ref } from 'vue'
-import { Getfilters } from '@/api/api.js'
+import ComponentCatalogFilters from '@/components/ComponentCatalogFilters.vue'
+import { ref } from 'vue'
 
 const props = defineProps(['mod'])
-const filters = ref({
-  brand: [],
-  material: []
-})
+const filters = ref(null)
 
-async function init() {
-  const res = await Getfilters()
-  filters.value = res.data
+function filtersEmit(value) {
+  filters.value = value
 }
-
-onMounted(async () => {
-  await init()
-})
 </script>
 
 <template>
   <section class="catalog box-x">
-    <aside class="catalog__filters">
-      <ul class="box-y">
-        <li class="box-y" v-for="(values, key) in filters" :key="key">
-          <span style="font-weight: 600; color: #000; text-decoration: underline">{{ key }}</span>
-          <ul class="box-y">
-            <li v-for="(value, key) in values" :key="key">
-              {{ value.name }}
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </aside>
+    <ComponentCatalogFilters @filters="filtersEmit" />
     <div class="catalog__content catalog__grid">
-      <ComponentDoors :mod="props.mod" :start="0" :end="12" :doorStyle="'mini'" :paging="true" />
+      <ComponentDoors
+        :mod="props.mod"
+        :start="0"
+        :end="12"
+        :doorStyle="'mini'"
+        :paging="true"
+        :filters="filters"
+      />
     </div>
   </section>
 </template>
@@ -43,14 +31,6 @@ onMounted(async () => {
 .catalog
   align-items: flex-start
   gap: 3rem
-  &__filters
-    position: sticky
-    top: 4rem
-  & ul
-    gap: 1rem
-    & li
-      gap: 1rem
-      color: #00000094
   &__grid
     width: 100%
     display: grid
