@@ -43,3 +43,7 @@ createApp(App).use(router).mount('#app')
 // [ ] -  love button doors_s
 // [ ] -  ищем магазинчик UX
 // [ ] -  количесто элментов по фильтрам
+// [ ] -  скидка
+// [ ] -  доп кестик
+// [ ] -  esc
+// [ ] -  home

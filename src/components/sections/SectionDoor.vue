@@ -5,6 +5,7 @@ import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage
 import { GetDoor } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
+import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
@@ -228,7 +229,7 @@ watch(() => props.door, init)
                 </div>
               </div>
             </div>
-            <h2></h2>
+            <ComponentDoorСalculator :door="door" />
           </div>
         </div>
         <button
