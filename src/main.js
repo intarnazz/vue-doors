@@ -25,7 +25,7 @@ createApp(App).use(router).mount('#app')
 // [X] -  Too Many Requests
 // [X] -  search fix
 // [X] -  фильтры
-// [ ] -  калькулятор
+// [X] -  калькулятор
 // [ ] -  php contact
 // [X] -  button index
 // [X] -  catalog pagin

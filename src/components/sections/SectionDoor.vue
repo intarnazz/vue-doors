@@ -229,7 +229,7 @@ watch(() => props.door, init)
                 </div>
               </div>
             </div>
-            <ComponentDoorСalculator :door="door" />
+            <ComponentDoorСalculator v-if="door.components" :door="door" />
           </div>
         </div>
         <button

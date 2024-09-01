@@ -5,9 +5,9 @@ import { title } from '@/utilte/utilte.js'
 
 const emit = defineEmits(['filters'])
 const filters = ref({
-  'типы дверей': [
-    { id: 1, name: 'межкомнатные', focus: true },
-    { id: 2, name: 'входные', focus: true }
+  type_door: [
+    { id: 1, name: 'interior', focus: true },
+    { id: 2, name: 'entrance', focus: true }
   ]
 })
 

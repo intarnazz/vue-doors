@@ -22,7 +22,8 @@ const totalPrice = computed(() => {
 })
 
 function priceChange(key, value) {
-  door.value.components[key].count += value
+  door.value.components[key].count +=
+    value > 0 ? value : door.value.components[key].count <= 0 ? 0 : value
 }
 
 function doorChange() {
@@ -61,6 +62,13 @@ h2
     background-color: hsl(164, 30%, 17%)
     color: #fff
     padding: .5rem 1rem
+    border-radius: 5px
+    &:first-child
+      border-bottom-left-radius: 0
+      border-bottom-right-radius: 0
+    &:last-child
+      border-top-left-radius: 0
+      border-top-right-radius: 0
     & hr
       border: none
       border-top: 1px solid hsla(0, 0%, 100%, .5)

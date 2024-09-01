@@ -16,7 +16,7 @@ const offset = ref(null)
 const totalCount = ref(null)
 const loding = ref(true)
 
-function _init_clear() {
+async function _init_clear() {
   doors.value = []
   door.value = null
   door_key.value = NaN
@@ -24,7 +24,7 @@ function _init_clear() {
   offset.value = null
   totalCount.value = null
   loding.value = true
-  init()
+  await init()
 }
 
 const mod = computed(() => {
@@ -57,6 +57,7 @@ async function init() {
     )
     if (response_id.value == res.response_id) {
       doors.value = [...doors.value, ...res.data]
+      filter()
       offset.value = res.pagingInfo.limit
       limit.value = 8
       totalCount.value = res.pagingInfo.totalCount
@@ -67,12 +68,13 @@ async function init() {
   }
 }
 
-function handleScroll(skip = false) {
+async function handleScroll(skip = false) {
   if (totalCount.value > offset.value && loding.value === false && props.paging) {
     const scrollPosition = window.scrollY + window.innerHeight
     const bottomPosition = document.documentElement.scrollHeight
     if (scrollPosition + 500 >= bottomPosition || skip) {
-      init()
+      console.log('handleScroll')
+      await init()
     }
   }
 }
@@ -101,10 +103,6 @@ function closeDoor() {
   document.body.style = 'overflow: auto;'
 }
 
-function modChange() {
-  _init_clear()
-}
-
 function left() {
   door_key.value--
   openDoor(door_key.value, doors.value[door_key.value])
@@ -115,8 +113,24 @@ function right() {
   openDoor(door_key.value, doors.value[door_key.value])
 }
 
-function filtersChange() {
+function filter() {
+  doors.value = doors.value.filter(
+    (i) =>
+      !props.filters ||
+      (props.filters['type_door'][0]?.focus === true &&
+        props.filters['type_door'][0].name === i.type) ||
+      (props.filters['type_door'][1]?.focus === true &&
+        props.filters['type_door'][1].name === i.type)
+  )
+}
+
+function modChange() {
   _init_clear()
+}
+
+async function filtersChange() {
+  await _init_clear()
+  await handleScroll(true)
 }
 
 watch(() => props.mod, modChange)
@@ -134,43 +148,39 @@ watch(() => props.filters, filtersChange)
     :doorKey="door_key"
     :doorsLen="doors_len"
   />
-  <div
-    @click="openDoor(key, value)"
-    v-for="(value, key) in doors"
-    :key="key"
-    class="hover"
-    :class="{ mini: props.doorStyle === 'mini' }"
-  >
-    <div class="door__item box-y">
-      <div class="door__image-wrapper box-x">
-        <ComponentImg class="image" :src="value.image_front.id" :alt="value.image_front.alt" />
-        <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
-        <ComponentImg class="image" :src="value.image_back.id" :alt="value.image_back.alt" />
-      </div>
-      <div class="box-y flex door__info-wrapper">
-        <div class="box-x door__info-row flex">
-          <p>
-            {{ title(value.name) }}
-          </p>
-          <p>
-            {{ price(value.price) }}
-          </p>
+  <template v-for="(value, key) in doors" :key="key">
+    <div @click="openDoor(key, value)" class="hover" :class="{ mini: props.doorStyle === 'mini' }">
+      <div class="door__item box-y">
+        <div class="door__image-wrapper box-x">
+          <ComponentImg class="image" :src="value.image_front.id" :alt="value.image_front.alt" />
+          <div v-if="props.doorStyle === 'mini'" class="door__image-gradient"></div>
+          <ComponentImg class="image" :src="value.image_back.id" :alt="value.image_back.alt" />
         </div>
-        <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
-          <p>Бренд:</p>
-          <p>
-            {{ title(value.brand.name) }}
-          </p>
-        </div>
-        <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
-          <p>Материал:</p>
-          <p>
-            {{ title(value.material.name) }}
-          </p>
+        <div class="box-y flex door__info-wrapper">
+          <div class="box-x door__info-row flex">
+            <p>
+              {{ title(value.name) }}
+            </p>
+            <p>
+              {{ price(value.price) }}
+            </p>
+          </div>
+          <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
+            <p>Бренд:</p>
+            <p>
+              {{ title(value.brand.name) }}
+            </p>
+          </div>
+          <div v-if="props.doorStyle !== 'mini'" class="box-x door__info-row flex">
+            <p>Материал:</p>
+            <p>
+              {{ title(value.material.name) }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <style lang="sass" scoped>

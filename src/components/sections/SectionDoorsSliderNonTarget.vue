@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { GetDoors } from '@/api/api.js'
 import { title, price } from '@/utilte/utilte.js'
 import ComponentImg from '@/components/ComponentImg.vue'
-
+import { RouterLink } from 'vue-router'
 
 const doors = ref({})
 const slider = ref(0)
@@ -53,20 +53,22 @@ setInterval(() => {
     >
       <div :style="`margin-left: ${slider}px`" class="box-x doorsSliderNonTarget__wrapper">
         <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item hover">
-          <ComponentImg
-            :src="door.image_front.id"
-            :alt="door.image_front.alt"
-            class="doorsSliderNonTarget__item-img image"
-          />
-          <div class="doorsSliderNonTarget__gradient"></div>
-          <div class="doorsSliderNonTarget__info-wrapper box-y">
-            <p>
-              {{ title(door.name) }}
-            </p>
-            <p>
-              {{ price(door.price) }}
-            </p>
-          </div>
+          <RouterLink v-if="!loding" :to="{ name: 'door', params: { id: door.id } }" class="">
+            <ComponentImg
+              :src="door.image_front.id"
+              :alt="door.image_front.alt"
+              class="doorsSliderNonTarget__item-img image"
+            />
+            <div class="doorsSliderNonTarget__gradient"></div>
+            <div class="doorsSliderNonTarget__info-wrapper box-y">
+              <p>
+                {{ title(door.name) }}
+              </p>
+              <p>
+                {{ price(door.price) }}
+              </p>
+            </div>
+          </RouterLink>
         </div>
       </div>
     </div>
