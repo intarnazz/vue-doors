@@ -53,7 +53,7 @@ setInterval(() => {
     >
       <div :style="`margin-left: ${slider}px`" class="box-x doorsSliderNonTarget__wrapper">
         <div v-for="(door, key) in doors" :key="key" class="doorsSliderNonTarget__item hover">
-          <RouterLink v-if="!loding" :to="{ name: 'door', params: { id: door.id } }" class="">
+          <RouterLink :to="{ name: 'door', params: { id: door.id } }" class="">
             <ComponentImg
               :src="door.image_front.id"
               :alt="door.image_front.alt"

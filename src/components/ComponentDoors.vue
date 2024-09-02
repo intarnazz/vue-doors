@@ -202,20 +202,20 @@ watch(() => props.filters, filtersChange)
     display: flex
     width: 100%
     background-color: #fff
-    border-radius: 20px
+    border-radius: 5px
     box-shadow: 0 0 30px 0 #838383
   &__image-wrapper
     width: 100%
     background-color: #000
-    border-radius: 20px
+    border-radius: 5px
     & .image
       width: 50%
       height: 355px
       object-fit: cover
       &:first-child
-        border-top-left-radius: 20px
+        border-top-left-radius: 5px
       &:last-child
-        border-top-right-radius: 20px
+        border-top-right-radius: 5px
 
 .mini
   &.hover
@@ -251,9 +251,9 @@ watch(() => props.filters, filtersChange)
       position: relative
       & .image
         &:first-child
-          border-bottom-left-radius:  20px
+          border-bottom-left-radius:  5px
         &:last-child
-          border-bottom-right-radius: 20px
+          border-bottom-right-radius: 5px
     &__image-gradient
       background: linear-gradient(to bottom, #00000000, #000000ff)
       position: absolute
@@ -261,7 +261,7 @@ watch(() => props.filters, filtersChange)
       left: 0
       width: 100%
       height: 100%
-      border-radius:  20px
+      border-radius:  5px
       transition: .3s
       opacity: 0
 </style>

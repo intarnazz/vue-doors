@@ -2,7 +2,7 @@
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
-import { GetDoor } from '@/api/api.js'
+import { GetDoor, PatchDoor } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
@@ -11,11 +11,16 @@ const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
 const height = ref(document.body.scrollHeight + 1000)
 const isFavorite = ref(false)
-const door_api = ref({})
+const door_api = ref(props.door)
 const loding = ref(true)
+const token = ref(sessionStorage.getItem('token'))
+
+const admin = computed(() => {
+  return token.value != undefined
+})
 
 const door = computed(() => {
-  return props.id ? door_api.value : props.door
+  return props.id || admin.value ? door_api.value : props.door
 })
 
 const isLeft = computed(() => {
@@ -103,6 +108,10 @@ function keyDown(e) {
   }
 }
 
+function patch() {
+  PatchDoor(door_api.value)
+}
+
 watch(() => props.door, init)
 </script>
 
@@ -155,6 +164,7 @@ watch(() => props.door, init)
             </p>
             <div class="box-x door__content">
               <div class="door__content-button-wrapper box-x gap">
+                <button @click="patch" class="button">Сохранить</button>
                 <RouterLink
                   v-if="!loding"
                   :to="{ name: 'door', params: { id: door.id } }"
@@ -195,7 +205,7 @@ watch(() => props.door, init)
                   </svg>
                 </div>
               </div>
-              <div class="image__wrapper box-x">
+              <div v-if="!loding" class="image__wrapper box-x">
                 <ComponentImg
                   class="image"
                   :src="door.image_front ? door.image_front.id : ''"
@@ -208,7 +218,8 @@ watch(() => props.door, init)
                 />
               </div>
               <div v-if="!loding" class="box-y">
-                <h2 class="">{{ title(door.name) }}</h2>
+                <h2 v-if="!admin" class="h2">{{ title(door.name) }}</h2>
+                <input type="text" v-model="door.name" v-else class="h2" />
                 <div class="box-x door__info">
                   <div class="box-y gap">
                     <p>Цена:</p>
@@ -219,7 +230,9 @@ watch(() => props.door, init)
                     </template>
                   </div>
                   <div class="box-y gap">
-                    <p>{{ price(door.price) }}</p>
+                    <p v-if="!admin">{{ price(door.price) }}</p>
+                    <input type="number" v-model="door.price" v-else class="" />
+
                     <template v-for="(value, key) in door" :key="key">
                       <p v-if="typeof value === typeof {} && value.name" class="">
                         {{ title(value.name) }}
@@ -229,7 +242,7 @@ watch(() => props.door, init)
                 </div>
               </div>
             </div>
-            <ComponentDoorСalculator v-if="door.components" :door="door" />
+            <ComponentDoorСalculator v-if="!loding" :door="door" />
           </div>
         </div>
         <button
@@ -255,6 +268,10 @@ watch(() => props.door, init)
 </template>
 
 <style lang="sass" scoped>
+input
+  background-color: #ffffff11
+  color: #fff
+
 .pagin
   cursor: pointer
   padding: 10rem 0
@@ -273,6 +290,7 @@ watch(() => props.door, init)
   align-items: center
   justify-content: center
   background-color: #fff
+  color: #000
   cursor: pointer
   transition: .2s
   &:hover
@@ -313,7 +331,7 @@ h1
     top: 0
     right: 0
     padding: 1rem 2rem
-  & h2
+  & .h2
     margin: 2rem 0
   &__info
     gap: 1rem
@@ -325,7 +343,7 @@ h1
     justify-content: flex-start
     & p
       color: rgba(255,255, 255, .8 )
-    & h2
+    & .h2
       font-size: 2.25rem
     & .image
       width: 195px

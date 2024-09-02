@@ -3,6 +3,7 @@ import Home from '@/pages/PageHome.vue'
 import Сontacts from '@/pages/PageContact.vue'
 import Catalog from '@/pages/PageCatalog.vue'
 import Door from '@/pages/PageDoor.vue'
+import Auth from '@/pages/PageAuth.vue'
 
 // import {
 //   ForecastGetContent,
@@ -36,6 +37,11 @@ const router = createRouter({
       name: 'door',
       component: Door,
       props: true
+    },
+    {
+      path: '/auth/',
+      name: 'auth',
+      component: Auth,
     }
 
     // {

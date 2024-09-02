@@ -16,8 +16,8 @@ onMounted(() => {
 
 const totalPrice = computed(() => {
   return price(
-    door.value.components.reduce((sum, component) => sum + component.price * component.count, 0) +
-      door.value.price
+    door.value.components.reduce((sum, component) => sum + +component.price * +component.count, 0) +
+      +door.value.price
   )
 })
 

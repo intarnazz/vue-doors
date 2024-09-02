@@ -1,5 +1,8 @@
-import * as GetArrModel from './get/Get.js'
-const Get = GetArrModel.Get
+import * as GetModel from './get/Get.js'
+const Get = GetModel.Get
+
+import * as PostModel from './post/Post.js'
+const Post = PostModel.Post
 
 export const GetDoors = async (
   skip = 0,
@@ -17,3 +20,24 @@ export const GetDoor = async (id = 1) => {
 export const Getfilters = async (skip = 0, take = 6) => {
   return await Get('door/filters', skip, take)
 }
+
+export const GetBrand = async () => await Push('brand')
+export const GetComponent = async () => await Push('component')
+export const GetMaterial = async () => await Push('material')
+
+export const auth = async (body) => {
+  const res = await Post('authorization', body)
+  if (res.success) {
+    sessionStorage.setItem('token', res.token)
+  }
+  return res
+}
+
+const Push = async (url, method, data) => {
+  return await Post(`${url}/${data.id}`, { _method: method, ...data })
+}
+
+export const PatchDoor = async (data) => await Push('door', 'PATCH', data)
+export const PatchBrand = async (data) => await Push('brand', 'PATCH', data)
+export const PatchComponent = async (data) => await Push('component', 'PATCH', data)
+export const PatchMaterial = async (data) => await Push('material', 'PATCH', data)

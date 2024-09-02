@@ -2,6 +2,7 @@
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SearchComponent from '@/components/ComponentSearch.vue'
 import { RouterLink } from 'vue-router'
+import LayoutAdmin from '@/layout/LayoutAdmin.vue'
 </script>
 
 <template>
@@ -17,6 +18,7 @@ import { RouterLink } from 'vue-router'
       <SearchComponent class="flex" />
     </LayoutWrapper>
   </header>
+  <LayoutAdmin></LayoutAdmin>
 </template>
 
 <style lang="sass" scoped>
