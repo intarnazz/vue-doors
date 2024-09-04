@@ -2,7 +2,7 @@
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
-import { GetDoor, PatchDoor } from '@/api/api.js'
+import { GetDoor, PatchDoor, GetBrand, GetMaterial } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
@@ -13,6 +13,8 @@ const height = ref(document.body.scrollHeight + 1000)
 const isFavorite = ref(false)
 const door_api = ref(props.door)
 const loding = ref(true)
+const brands = ref([])
+const materials = ref([])
 const token = ref(sessionStorage.getItem('token'))
 
 const admin = computed(() => {
@@ -36,10 +38,24 @@ async function DoorGet() {
   door_api.value = res.data
 }
 
+async function brandGet() {
+  const res = await GetBrand()
+  brands.value = res.data
+}
+
+async function materialGet() {
+  const res = await GetMaterial()
+  materials.value = res.data
+}
+
 async function init() {
+  loding.value = true
   if (props.id) {
-    loding.value = true
     await DoorGet()
+  }
+  if (admin.value) {
+    await brandGet()
+    await materialGet()
   }
   loding.value = false
   isFavorite.value = get('favorite').includes(door.value.id)
@@ -234,9 +250,35 @@ watch(() => props.door, init)
                     <input type="number" v-model="door.price" v-else class="" />
 
                     <template v-for="(value, key) in door" :key="key">
-                      <p v-if="typeof value === typeof {} && value.name" class="">
-                        {{ title(value.name) }}
-                      </p>
+                      <template v-if="typeof value === typeof {} && value.name">
+                        <p v-if="!admin" class="">
+                          {{ title(value.name) }}
+                        </p>
+                        <select
+                          v-else-if="key === 'brand'"
+                          v-model="value.name"
+                          id="cars"
+                          name="cars"
+                        >
+                          <option v-for="(brand, key) in brands" :key="key" :value="brand.name">
+                            {{ brand.name }}
+                          </option>
+                        </select>
+                        <select
+                          v-else-if="key === 'material'"
+                          v-model="value.name"
+                          id="cars"
+                          name="cars"
+                        >
+                          <option
+                            v-for="(material, key) in materials"
+                            :key="key"
+                            :value="material.name"
+                          >
+                            {{ material.name }}
+                          </option>
+                        </select>
+                      </template>
                     </template>
                   </div>
                 </div>

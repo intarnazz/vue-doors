@@ -21,9 +21,9 @@ export const Getfilters = async (skip = 0, take = 6) => {
   return await Get('door/filters', skip, take)
 }
 
-export const GetBrand = async () => await Push('brand')
-export const GetComponent = async () => await Push('component')
-export const GetMaterial = async () => await Push('material')
+export const GetBrand = async () => await Get('brand')
+export const GetComponent = async () => await Get('component')
+export const GetMaterial = async () => await Get('material')
 
 export const auth = async (body) => {
   const res = await Post('authorization', body)
