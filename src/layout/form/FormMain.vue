@@ -20,7 +20,7 @@ function submit() {
   &__wrapper
     display: flex
     justify-content: flex-end
-  & input
+  & div
     border-bottom: 1px solid #000
     width: 100%
 </style>
