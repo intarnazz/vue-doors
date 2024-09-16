@@ -4,8 +4,7 @@ import FormMain from '@/layout/form/FormMain.vue'
 
 <template>
   <FormMain>
-    <div class="box-x">
-      <input
+    <input
       v-model="text"
       class="flex"
       id="search"
@@ -13,9 +12,8 @@ import FormMain from '@/layout/form/FormMain.vue'
       type="search"
       placeholder="search..."
       autocomplete="off"
-      />
-      <img src="@/assets/icons/search.svg" alt="search" />
-    </div>
+    />
+    <img src="@/assets/icons/search.svg" alt="search" />
   </FormMain>
 </template>
 
