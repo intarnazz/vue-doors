@@ -1,12 +1,13 @@
 <script setup>
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import ComponentLogo from '@/components/ComponentLogo.vue'
 </script>
 
 <template>
   <footer class="footer box-shadow">
     <LayoutWrapper class="box-x footer__wrapper">
       <div class="flex">
-        <img class="" src="" alt="LOGO" />
+        <ComponentLogo size="s" />
       </div>
       <nav class="box-x">
         <p>Каталог</p>

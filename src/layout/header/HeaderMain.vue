@@ -3,6 +3,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SearchComponent from '@/components/ComponentSearch.vue'
 import { RouterLink } from 'vue-router'
 import LayoutAdmin from '@/layout/LayoutAdmin.vue'
+import ComponentLogo from '@/components/ComponentLogo.vue'
 </script>
 
 <template>
@@ -12,9 +13,7 @@ import LayoutAdmin from '@/layout/LayoutAdmin.vue'
         <RouterLink :to="{ name: 'catalog' }">Каталог</RouterLink>
         <RouterLink :to="{ name: 'contact' }">Контакты</RouterLink>
       </nav>
-      <RouterLink :to="{ name: 'home' }">
-        <img src="" alt="LOGO" />
-      </RouterLink>
+      <ComponentLogo size="l" />
       <SearchComponent class="flex" />
     </LayoutWrapper>
   </header>
