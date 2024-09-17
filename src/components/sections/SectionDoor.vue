@@ -6,6 +6,10 @@ import { GetDoor, PatchDoor, GetBrand, GetMaterial } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
+import SvgRight from '@/components/svg/SvgRight.vue'
+import SvgLeft from '@/components/svg/SvgLeft.vue'
+import SvgClose from '@/components/svg/SvgClose.vue'
+import ComponentDoorChangeMenu from '@/components/ComponentDoorChangeMenu.vue'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
@@ -72,7 +76,7 @@ onUnmounted(() => {
   document.removeEventListener('keydown', keyDown)
 })
 
-function colse() {
+function close() {
   emit('close')
 }
 
@@ -128,6 +132,11 @@ function patch() {
   PatchDoor(door_api.value)
 }
 
+function brandsChange(brand_id) {
+  console.log(brand_id)
+  door_api.value.brand_id = brand_id
+}
+
 watch(() => props.door, init)
 </script>
 
@@ -138,22 +147,9 @@ watch(() => props.door, init)
     class="door__wrapper"
   >
     <div class="door__sticky">
-      <div @click="colse" class="door__relative box-x">
-        <div v-if="!props.id" class="colse">
-          <svg
-            fill="#fff"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            version="1.1"
-            aria-hidden="false"
-            style="flex-shrink: 0"
-          >
-            <desc lang="en-US">An X shape</desc>
-            <path
-              d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"
-            ></path>
-          </svg>
+      <div @click="close" class="door__relative box-x">
+        <div v-if="!props.id" class="close">
+          <SvgClose />
         </div>
         <button
           @click.stop="left()"
@@ -161,16 +157,7 @@ watch(() => props.door, init)
           :style="!isLeft ? 'cursor: auto' : ''"
           class="pagin__left pagin flex center"
         >
-          <svg
-            :style="!isLeft ? 'fill: #00000000' : ''"
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#e8eaed"
-          >
-            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
-          </svg>
+          <SvgLeft :isLeft="isLeft" />
         </button>
 
         <div @click.stop="" class="door">
@@ -248,22 +235,19 @@ watch(() => props.door, init)
                   <div class="box-y gap">
                     <p v-if="!admin">{{ price(door.price) }}</p>
                     <input type="number" v-model="door.price" v-else class="" />
-
                     <template v-for="(value, key) in door" :key="key">
                       <template v-if="typeof value === typeof {} && value.name">
                         <p v-if="!admin" class="">
                           {{ title(value.name) }}
                         </p>
-                        <select
+
+                        <ComponentDoorChangeMenu
                           v-else-if="key === 'brand'"
-                          v-model="value.name"
-                          id="cars"
-                          name="cars"
-                        >
-                          <option v-for="(brand, key) in brands" :key="key" :value="brand.name">
-                            {{ brand.name }}
-                          </option>
-                        </select>
+                          @change="brandsChange"
+                          :arr="brands"
+                          :id="value.id"
+                        />
+
                         <select
                           v-else-if="key === 'material'"
                           v-model="value.name"
@@ -293,16 +277,7 @@ watch(() => props.door, init)
           :style="!isRight ? 'cursor: auto' : ''"
           class="pagin__right pagin flex center"
         >
-          <svg
-            :style="!isRight ? 'fill: #00000000' : ''"
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#e8eaed"
-          >
-            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
-          </svg>
+          <SvgRight :isRight="isRight" />
         </button>
       </div>
     </div>
@@ -313,7 +288,6 @@ watch(() => props.door, init)
 input
   background-color: #ffffff11
   color: #fff
-
 .pagin
   cursor: pointer
   padding: 10rem 0
@@ -342,7 +316,7 @@ input
     transition: .2s
     fill: rgba(0, 0, 0, .5 )
 
-.colse
+.close
   position: absolute
   top: 0
   left: 0
@@ -420,7 +394,7 @@ h1
       background: none
 
 .single-page
-  & .colse
+  & .close
     display: none
   & .door
     padding: 0 0
