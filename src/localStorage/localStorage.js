@@ -15,15 +15,6 @@ export function del(key, value) {
   localStorage.setItem(key, JSON.stringify([...arr]))
 }
 
-export function destroy(key, value) {
-  let arr = JSON.parse(localStorage.getItem(key))
-  arr = arr ? arr : []
-  arr = arr.filter((e) => {
-    return e !== value
-  })
-  localStorage.setItem(key, JSON.stringify([...arr]))
-}
-
 export function get(key) {
   const res = JSON.parse(localStorage.getItem(key))
   return res ? res : []

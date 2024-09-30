@@ -4,6 +4,11 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 
 const token = ref('')
 
+function logout() {
+  sessionStorage.removeItem('token')
+  window.location.href = '/'
+}
+
 onMounted(() => {
   token.value = sessionStorage.getItem('token')
 })
@@ -14,6 +19,7 @@ onMounted(() => {
     <LayoutWrapper class="box-x">
       <div>ADMIN</div>
       <slot> </slot>
+      <button @click="logout()">logout</button>
     </LayoutWrapper>
   </div>
 </template>
@@ -27,7 +33,7 @@ onMounted(() => {
   color: #fff
   justify-content: center
   align-items: center
-  & button 
+  & button
     color: #fff
     background-color: #000 !important
     font-size: 1rem
