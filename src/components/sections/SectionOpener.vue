@@ -9,7 +9,6 @@ import { RouterLink } from 'vue-router'
     <h2 class="sans">
       Откройте для себя разнообразие дверей и уникальных решений для вашего интерьера
     </h2>
-
     <RouterLink :to="{ name: 'contact' }" class="button">Свяжитесь с нами</RouterLink>
   </section>
 </template>
@@ -19,5 +18,5 @@ import { RouterLink } from 'vue-router'
   display: flex
   flex-direction: column
   align-items: center
-  gap: 1.5rem
+  gap: 2rem
 </style>

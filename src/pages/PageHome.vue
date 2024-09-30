@@ -10,10 +10,12 @@ import LayoutPage from '@/layout/LayoutPage.vue'
 
 <template>
   <LayoutPage class="main">
-    <LayoutWrapper class="flex box-y main__wrapper">
-      <SectionOpener />
-    </LayoutWrapper>
-    <SectionDoorsSliderNonTarget />
+    <div class="box-y gap2 opener__bg">
+      <LayoutWrapper class="flex box-y main__wrapper">
+        <SectionOpener />
+      </LayoutWrapper>
+      <SectionDoorsSliderNonTarget />
+    </div>
     <LayoutWrapper class="flex box-y main__wrapper">
       <SectionDoors />
     </LayoutWrapper>
@@ -23,6 +25,13 @@ import LayoutPage from '@/layout/LayoutPage.vue'
 </template>
 
 <style lang="sass" scoped>
+.opener
+  &__bg
+    gap: 4rem
+    padding-top: 6dvh
+    background: linear-gradient(to bottom, #f8f7f3 85%, #fff 85%)
+.box-y
+  align-items: center
 .main
-  margin: 4rem 0
+  gap: 6rem
 </style>
