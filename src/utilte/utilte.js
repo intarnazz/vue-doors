@@ -10,3 +10,10 @@ export const price = (i) => {
     maximumFractionDigits: 0
   })
 }
+
+export const up = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}

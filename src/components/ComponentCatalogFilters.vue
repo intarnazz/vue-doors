@@ -65,8 +65,6 @@ $gradient1: hsl(133, 28%, 50%)
 $gradient2: hsl(133, 0%, 25%)
 .filters
   background-color: #00000006
-  position: sticky
-  top: 7dvh
   max-height: 81dvh
   overflow: auto
   user-select: none

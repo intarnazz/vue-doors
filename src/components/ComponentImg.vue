@@ -13,4 +13,7 @@ const props = defineProps(['src', 'alt'])
   <div v-else class=""></div>
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+img
+  user-select: none
+</style>
