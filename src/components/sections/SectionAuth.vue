@@ -20,8 +20,8 @@ async function submit() {
     <img src="@/assets/img/bg.jpg" alt="bg" />
     <div class="box-y gap2">
       <h1>Авторизация</h1>
-      <FormMain @submit="submit" class="">
-        <div class="box-y gap">
+      <FormMain @submit="submit" class="form-main">
+        <div class="">
           <input
             v-model="login"
             class="flex"
@@ -30,6 +30,8 @@ async function submit() {
             type="login"
             placeholder="login..."
           />
+        </div>
+        <div>
           <input
             v-model="password"
             class="flex"
@@ -38,14 +40,17 @@ async function submit() {
             type="password"
             placeholder="password..."
           />
-          <button type="submit" class="button">войти</button>
         </div>
+        <button type="submit" class="button">войти</button>
       </FormMain>
     </div>
   </section>
 </template>
 
 <style lang="sass" scoped>
+.form-main
+  & div
+    margin: 1rem 0
 .box-y
   align-items: flex-start
 .auth
