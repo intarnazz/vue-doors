@@ -26,21 +26,23 @@ createApp(App).use(router).mount('#app')
 // [X] -  search fix
 // [X] -  фильтры
 // [X] -  калькулятор
-// [ ] -  php contact
-// [X] -  button index
 // [X] -  catalog pagin
-// [ ] -  catalog aside component
 // [X] -  error image
+// [X] -  love button doors_s
+// [X] -  catalog aside component
+// [X] -  SectionDoorsSliderNonTarget @click
+
+// [ ] -  добовление, изменение, удаление, основных элементов
+// [ ] -  php contact
+// [ ] -  button index
 // [ ] -  загрузка в header
 // [ ] -  search ani
 // [ ] -  svg Door loding
-// [ ] -  UP button
+// [ ] -  UP button - fix
 // [ ] -  иконка карзинки в door>favorite>svg
-// [ ] -  mod url
+// [ ] -  mod url secong header
 // [ ] -  http://localhost:5173/door/{door.name}
-// [ ] -  SectionDoorsSliderNonTarget @click
 // [ ] -  UX
-// [ ] -  love button doors_s
 // [ ] -  ищем магазинчик UX
 // [ ] -  количесто элментов по фильтрам
 // [ ] -  скидка
