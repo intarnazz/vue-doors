@@ -62,13 +62,13 @@ h2
     background-color: hsl(164, 30%, 17%)
     color: #fff
     padding: .5rem 1rem
-    border-radius: 5px
+    border-radius: 0px
     &:first-child
-      border-bottom-left-radius: 0
-      border-bottom-right-radius: 0
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
     &:last-child
-      border-top-left-radius: 0
-      border-top-right-radius: 0
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
     & hr
       border: none
       border-top: 1px solid hsla(0, 0%, 100%, .5)

@@ -4,20 +4,20 @@ import { ref, watch } from 'vue'
 const props = defineProps(['id', 'arr'])
 const emit = defineEmits(['change'])
 
-const key = ref(props.id)
+const id = ref(props.id)
 
 function change() {
-  console.log(key.value)
-  emit('change', props.arr[key.value].id)
+  console.log(id.value)
+  emit('change', id.value)
 }
 
-watch(() => key.value, change)
+watch(() => id.value, change)
 </script>
 
 <template>
   <div class="box-x select__wrapper">
-    <select v-model="key" id="cars" name="cars">
-      <option v-for="(value, key) in props.arr" :key="key" :value="key">
+    <select v-model="id" id="cars" name="cars">
+      <option v-for="(value, key) in props.arr" :key="key" :value="value.id">
         {{ value.name }}
       </option>
     </select>

@@ -132,9 +132,12 @@ function patch() {
   PatchDoor(door_api.value)
 }
 
-function brandsChange(brand_id) {
-  console.log(brand_id)
-  door_api.value.brand_id = brand_id
+function brandsChange(id) {
+  door_api.value.brand_id = id
+}
+
+function materialsChange(id) {
+  door_api.value.material_id = id
 }
 
 watch(() => props.door, init)
@@ -248,20 +251,12 @@ watch(() => props.door, init)
                           :id="value.id"
                         />
 
-                        <select
+                        <ComponentDoorChangeMenu
                           v-else-if="key === 'material'"
-                          v-model="value.name"
-                          id="cars"
-                          name="cars"
-                        >
-                          <option
-                            v-for="(material, key) in materials"
-                            :key="key"
-                            :value="material.name"
-                          >
-                            {{ material.name }}
-                          </option>
-                        </select>
+                          @change="materialsChange"
+                          :arr="materials"
+                          :id="value.id"
+                        />
                       </template>
                     </template>
                   </div>
