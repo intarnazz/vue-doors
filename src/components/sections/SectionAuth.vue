@@ -17,7 +17,7 @@ async function submit() {
 
 <template>
   <section class="auth box-x">
-    <img src="@/assets/img/bg.jpg" alt="bg" />
+    <!-- <img src="@/assets/img/bg.jpg" alt="bg" /> -->
     <div class="box-y gap2">
       <h1>Авторизация</h1>
       <FormMain @submit="submit" class="form-main">

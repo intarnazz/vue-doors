@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { GetDoors } from '@/api/api.js'
 import { title, price } from '@/utilte/utilte.js'
 import ComponentImg from '@/components/ComponentImg.vue'
@@ -10,17 +10,10 @@ const slider = ref(0)
 const loop = ref(0)
 const speed = ref(1)
 const isHovered = ref(false)
+const IntervalSliderMove = ref(null)
+const IntervalHover = ref(null)
 
-onMounted(async () => {
-  const res = await GetDoors(0, 10)
-  doors.value = res.data
-})
-
-const mouseEvent = (e) => {
-  isHovered.value = e
-}
-
-setInterval(() => {
+function sliderMove() {
   loop.value += speed.value
   slider.value -= speed.value
   if (loop.value >= 280) {
@@ -29,9 +22,10 @@ setInterval(() => {
     const door = doors.value.shift()
     doors.value.push(door)
   }
-}, 9)
+  console.log(doors.value.lengh)
+}
 
-setInterval(() => {
+function hover() {
   if (isHovered.value === true && speed.value > 0) {
     speed.value -= 0.01
   } else if (speed.value < 0) {
@@ -41,7 +35,27 @@ setInterval(() => {
   } else if (speed.value > 1) {
     speed.value = 1
   }
-}, 1)
+}
+
+async function init() {
+  const res = await GetDoors(0, 10)
+  doors.value = res.data
+  IntervalSliderMove.value = setInterval(sliderMove, 9)
+  IntervalHover.value = setInterval(hover, 1)
+}
+
+onMounted(async () => {
+  await init()
+})
+
+onUnmounted(() => {
+  clearInterval(IntervalSliderMove.value)
+  clearInterval(IntervalHover.value)
+})
+
+const mouseEvent = (e) => {
+  isHovered.value = e
+}
 </script>
 
 <template>
