@@ -40,7 +40,7 @@ function hover() {
 async function init() {
   const res = await GetDoors(0, 10)
   doors.value = res.data
-  IntervalSliderMove.value = setInterval(sliderMove, 9)
+  IntervalSliderMove.value = setInterval(sliderMove, 20)
   IntervalHover.value = setInterval(hover, 1)
 }
 
