@@ -41,3 +41,8 @@ export const PatchDoor = async (data) => await Push('door', 'PATCH', data)
 export const PatchBrand = async (data) => await Push('brand', 'PATCH', data)
 export const PatchComponent = async (data) => await Push('component', 'PATCH', data)
 export const PatchMaterial = async (data) => await Push('material', 'PATCH', data)
+
+export const addDoor = async (data) => await Post('door', data)
+export const addBrand = async (data) => await Post('brand', data)
+export const addComponent = async (data) => await Post('component', data)
+export const addMaterial = async (data) => await Post('material', data)

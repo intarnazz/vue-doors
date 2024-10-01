@@ -2,7 +2,6 @@
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
 import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
-import { GetDoor, PatchDoor, GetBrand, GetMaterial } from '@/api/api.js'
 import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
@@ -10,6 +9,7 @@ import SvgRight from '@/components/svg/SvgRight.vue'
 import SvgLeft from '@/components/svg/SvgLeft.vue'
 import SvgClose from '@/components/svg/SvgClose.vue'
 import ComponentDoorChangeMenu from '@/components/ComponentDoorChangeMenu.vue'
+import { GetDoor, PatchDoor, GetBrand, GetMaterial, addBrand, addMaterial } from '@/api/api.js'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
@@ -249,6 +249,7 @@ watch(() => props.door, init)
                           @change="brandsChange"
                           :arr="brands"
                           :id="value.id"
+                          :foo="addBrand"
                         />
 
                         <ComponentDoorChangeMenu
@@ -256,6 +257,7 @@ watch(() => props.door, init)
                           @change="materialsChange"
                           :arr="materials"
                           :id="value.id"
+                          :foo="addMaterial"
                         />
                       </template>
                     </template>
