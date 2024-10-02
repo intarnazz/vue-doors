@@ -1,20 +1,19 @@
 <script setup>
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue'
 import { title, price } from '@/utilte/utilte.js'
-import { save as ls_save, get, del as ls_del } from '@/localStorage/localStorage.js'
-import { RouterLink } from 'vue-router'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentDoorСalculator from '@/components/ComponentDoorСalculator.vue'
 import SvgRight from '@/components/svg/SvgRight.vue'
 import SvgLeft from '@/components/svg/SvgLeft.vue'
 import SvgClose from '@/components/svg/SvgClose.vue'
 import ComponentDoorChangeMenu from '@/components/ComponentDoorChangeMenu.vue'
+import ButtonFavorite from '@/components/button/ButtonFavorite.vue'
+import ButtonOpenTheDoor from '@/components/button/ButtonOpenTheDoor.vue'
 import { GetDoor, PatchDoor, GetBrand, GetMaterial, addBrand, addMaterial } from '@/api/api.js'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
 const height = ref(document.body.scrollHeight + 1000)
-const isFavorite = ref(false)
 const door_api = ref(props.door)
 const loding = ref(true)
 const brands = ref([])
@@ -62,7 +61,6 @@ async function init() {
     await materialGet()
   }
   loding.value = false
-  isFavorite.value = get('favorite').includes(door.value.id)
 }
 
 onMounted(async () => {
@@ -89,16 +87,6 @@ function keyFormat(key) {
     default:
       return ''
   }
-}
-
-function save(key, value) {
-  isFavorite.value = true
-  ls_save(key, value)
-}
-
-function del(key, value) {
-  isFavorite.value = false
-  ls_del(key, value)
 }
 
 function left() {
@@ -128,8 +116,12 @@ function keyDown(e) {
   }
 }
 
-function patch() {
-  PatchDoor(door_api.value)
+async function patch() {
+  const res = await PatchDoor(door_api.value)
+  console.log(res)
+  if (res.success) {
+    init()
+  }
 }
 
 function brandsChange(id) {
@@ -170,46 +162,9 @@ watch(() => props.door, init)
             </p>
             <div class="box-x door__content">
               <div class="door__content-button-wrapper box-x gap">
-                <button @click="patch" class="button">Сохранить</button>
-                <RouterLink
-                  v-if="!loding"
-                  :to="{ name: 'door', params: { id: door.id } }"
-                  class="button"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    fill="#e8eaed"
-                  >
-                    <path
-                      d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z"
-                    />
-                  </svg>
-                </RouterLink>
-
-                <div
-                  v-if="!loding"
-                  @click="isFavorite ? del('favorite', door.id) : save('favorite', door.id)"
-                  :class="{ favorite: isFavorite }"
-                  class="button"
-                >
-                  <svg
-                    class=""
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    version="1.1"
-                    aria-hidden="false"
-                    style="flex-shrink: 0"
-                  >
-                    <desc lang="en-US">A heart</desc>
-                    <path
-                      d="M21.424 4.594c-2.101-2.125-5.603-2.125-7.804 0l-1.601 1.619-1.601-1.62c-2.101-2.124-5.603-2.124-7.804 0-2.202 2.126-2.102 5.668 0 7.894L12.019 22l9.405-9.513a5.73 5.73 0 0 0 0-7.893Z"
-                    ></path>
-                  </svg>
-                </div>
+                <button v-if="admin" @click="patch" class="button button_w">Сохранить</button>
+                <ButtonOpenTheDoor v-if="!loding" :id="door.id" />
+                <ButtonFavorite v-if="!loding" :id="door.id" />
               </div>
               <div v-if="!loding" class="image__wrapper box-x">
                 <ComponentImg
@@ -249,7 +204,10 @@ watch(() => props.door, init)
                           @change="brandsChange"
                           :arr="brands"
                           :id="value.id"
-                          :foo="addBrand"
+                          :foo="{
+                            add: addBrand
+                          }"
+                          :keys="['name']"
                         />
 
                         <ComponentDoorChangeMenu
@@ -257,7 +215,10 @@ watch(() => props.door, init)
                           @change="materialsChange"
                           :arr="materials"
                           :id="value.id"
-                          :foo="addMaterial"
+                          :foo="{
+                            add: addMaterial
+                          }"
+                          :keys="['name']"
                         />
                       </template>
                     </template>
@@ -296,22 +257,6 @@ input
     & svg
       fill: #fff
       transform: scale(1.1)
-
-.button
-  padding: .5rem
-  display: flex
-  align-items: center
-  justify-content: center
-  background-color: #fff
-  color: #000
-  cursor: pointer
-  transition: .2s
-  &:hover
-    & svg
-      fill: hsl(133,59%,50%)
-  & svg
-    transition: .2s
-    fill: rgba(0, 0, 0, .5 )
 
 .close
   position: absolute
@@ -380,9 +325,6 @@ h1
     z-index: 3
     background-color: rgba(0, 0, 0, .5)
     width: 100%
-
-.favorite svg
-  fill: hsl(133,59%,50%)
 
 .single-page
   &.door

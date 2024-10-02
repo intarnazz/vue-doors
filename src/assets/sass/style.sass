@@ -131,6 +131,21 @@ nav
   padding: 1em 3em
   transition: .5s
   cursor: pointer
+  &_w
+    padding: .5rem
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: #fff
+    color: #000
+    cursor: pointer
+    transition: .2s
+    &:hover
+      & svg
+        fill: hsl(133,59%,50%)
+    & svg
+      transition: .2s
+      fill: rgba(0, 0, 0, .5 )
   &:hover
     box-shadow: 0 0 10px hsl(133,99%,74%)
     transform: scale(1.05)

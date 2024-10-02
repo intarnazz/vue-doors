@@ -1,24 +1,37 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import LayoutPopup from '@/layout/LayoutPopup.vue'
 import FormMain from '@/layout/form/FormMain.vue'
+import ComponentFormContent from '@/components/ComponentFormContent.vue'
 
-const props = defineProps(['id', 'arr', 'foo'])
+const props = defineProps(['id', 'arr', 'foo', 'keys'])
 const emit = defineEmits(['change'])
 const id = ref(props.id)
-const name = ref('')
+const array = ref([])
+const obj = ref(null)
 const popupIsOpen = ref(false)
+
+function init() {
+  array.value.push(...props.arr)
+}
+
+onMounted(() => {
+  init()
+})
 
 function changePopup() {
   popupIsOpen.value = !popupIsOpen.value
 }
 
-function submit() {
-  props.foo({ name: name.value })
+async function add() {
+  const res = await props.foo.add(obj.value)
+  array.value.push(res.data)
+  id.value = res.data.id
 }
 
 function change() {
   emit('change', id.value)
+  popupIsOpen.value = false
 }
 
 watch(() => id.value, change)
@@ -27,7 +40,7 @@ watch(() => id.value, change)
 <template>
   <div class="box-x select__wrapper">
     <select v-model="id" id="cars" name="cars">
-      <option v-for="(value, key) in props.arr" :key="key" :value="value.id">
+      <option v-for="(value, key) in array" :key="key" :value="value.id">
         {{ value.name }}
       </option>
     </select>
@@ -36,24 +49,18 @@ watch(() => id.value, change)
     </div>
   </div>
   <LayoutPopup @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
-    <FormMain @submit="submit" class="form">
-      <h2>Добавление {{ title }}</h2>
-      <ul class="box-y gap">
-        <li class="box-x gap">
-          <label for="name">Название</label>
-          <div>
-            <input v-model="name" name="name" type="text" />
-          </div>
-        </li>
-      </ul>
-      <button class="button" type="submit">Создать</button>
+    <FormMain @submit="add" class="form">
+      <ComponentFormContent
+        @change="(e) => (obj = e)"
+        :title="'Добавить'"
+        :keys="props.keys"
+        :submit="'Создать'"
+      />
     </FormMain>
   </LayoutPopup>
 </template>
 
 <style lang="sass" scoped>
-ul
-  margin: 2rem 0
 .form
   color: #000
   background-color: #fff
