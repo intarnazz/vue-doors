@@ -9,6 +9,7 @@ const emit = defineEmits(['change'])
 const id = ref(props.id)
 const array = ref([])
 const obj = ref(null)
+const method = ref(null)
 const popupIsOpen = ref(false)
 
 function init() {
@@ -19,12 +20,23 @@ onMounted(() => {
   init()
 })
 
+function changeMethod(value) {
+  method.value = value
+  changePopup()
+}
+
 function changePopup() {
   popupIsOpen.value = !popupIsOpen.value
 }
 
 async function add() {
   const res = await props.foo.add(obj.value)
+  array.value.push(res.data)
+  id.value = res.data.id
+}
+
+async function edit() {
+  const res = await props.foo.patch(obj.value)
   array.value.push(res.data)
   id.value = res.data.id
 }
@@ -44,12 +56,13 @@ watch(() => id.value, change)
         {{ value.name }}
       </option>
     </select>
-    <div @click="changePopup()" class="select__button-wrapper">
-      <img src="@/assets/icons/add.svg" alt="add" />
+    <div class="select__button-wrapper">
+      <img @click="changeMethod(add)" src="@/assets/icons/add.svg" alt="add" />
+      <img @click="changeMethod(edit)" src="@/assets/icons/edit.svg" alt="edit" />
     </div>
   </div>
   <LayoutPopup @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
-    <FormMain @submit="add" class="form">
+    <FormMain @submit="method" class="form">
       <ComponentFormContent
         @change="(e) => (obj = e)"
         :title="'Добавить'"

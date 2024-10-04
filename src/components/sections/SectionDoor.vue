@@ -9,7 +9,16 @@ import SvgClose from '@/components/svg/SvgClose.vue'
 import ComponentDoorChangeMenu from '@/components/ComponentDoorChangeMenu.vue'
 import ButtonFavorite from '@/components/button/ButtonFavorite.vue'
 import ButtonOpenTheDoor from '@/components/button/ButtonOpenTheDoor.vue'
-import { GetDoor, PatchDoor, GetBrand, GetMaterial, addBrand, addMaterial } from '@/api/api.js'
+import {
+  GetDoor,
+  PatchDoor,
+  GetBrand,
+  GetMaterial,
+  AddBrand,
+  AddMaterial,
+  PatchBrand,
+  PatchMaterial
+} from '@/api/api.js'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
 const emit = defineEmits(['close', 'left', 'right', 'handleScroll'])
@@ -205,7 +214,8 @@ watch(() => props.door, init)
                           :arr="brands"
                           :id="value.id"
                           :foo="{
-                            add: addBrand
+                            add: AddBrand,
+                            patch: PatchBrand
                           }"
                           :keys="['name']"
                         />
@@ -216,7 +226,8 @@ watch(() => props.door, init)
                           :arr="materials"
                           :id="value.id"
                           :foo="{
-                            add: addMaterial
+                            add: AddMaterial,
+                            patch: PatchMaterial
                           }"
                           :keys="['name']"
                         />

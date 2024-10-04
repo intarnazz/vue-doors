@@ -37,12 +37,19 @@ const Push = async (url, method, data) => {
   return await Post(`${url}/${data.id}`, { _method: method, ...data })
 }
 
+// const api = {}
+
+export const DeleteDoor = async (data) => await Push('door', 'DELETE', data)
+export const DeleteBrand = async (data) => await Push('brand', 'DELETE', data)
+export const DeleteComponent = async (data) => await Push('component', 'DELETE', data)
+export const DeleteMaterial = async (data) => await Push('material', 'DELETE', data)
+
 export const PatchDoor = async (data) => await Push('door', 'PATCH', data)
 export const PatchBrand = async (data) => await Push('brand', 'PATCH', data)
 export const PatchComponent = async (data) => await Push('component', 'PATCH', data)
 export const PatchMaterial = async (data) => await Push('material', 'PATCH', data)
 
-export const addDoor = async (data) => await Post('door', data)
-export const addBrand = async (data) => await Post('brand', data)
-export const addComponent = async (data) => await Post('component', data)
-export const addMaterial = async (data) => await Post('material', data)
+export const AddDoor = async (data) => await Post('door', data)
+export const AddBrand = async (data) => await Post('brand', data)
+export const AddComponent = async (data) => await Post('component', data)
+export const AddMaterial = async (data) => await Post('material', data)

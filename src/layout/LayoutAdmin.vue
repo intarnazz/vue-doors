@@ -19,7 +19,7 @@ onMounted(() => {
     <LayoutWrapper class="box-x">
       <div>ADMIN</div>
       <slot> </slot>
-      <button @click="logout()">logout</button>
+      <button class="button button_w" @click="logout()">logout</button>
     </LayoutWrapper>
   </div>
 </template>
@@ -34,7 +34,5 @@ onMounted(() => {
   justify-content: center
   align-items: center
   & button
-    color: #fff
-    background-color: #000 !important
     font-size: 1rem
 </style>
