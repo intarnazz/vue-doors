@@ -50,14 +50,14 @@ async function add() {
 async function edit() {
   const res = await props.foo.patch({ id: id.value, ...obj.value })
   array.value[objId.value] = res.data
-  close()
+  change()
 }
 
 async function del() {
   const res = await props.foo.delete({ id: id.value, ...obj.value })
   if (res.success) {
     array.value.splice(objId.value, 1)
-    close()
+    change()
   }
 }
 
@@ -66,7 +66,7 @@ function close() {
 }
 
 function change() {
-  emit('change', id.value)
+  emit('change', id.value, array.value[objId.value])
   close()
 }
 
@@ -75,13 +75,16 @@ watch(() => id.value, change)
 
 <template>
   <div class="box-x select__wrapper">
-    <select v-model="id" id="cars" name="cars">
+    <select v-if="props.foo.add" v-model="id" id="cars" name="cars">
       <option v-for="(value, key) in array" :key="key" :value="value.id">
         {{ value.name }}
       </option>
     </select>
+    <p v-else>
+      {{ array[objId]?.name }}
+    </p>
     <div class="select__button-wrapper box-x gap">
-      <img @click="changeMethod(add)" src="@/assets/icons/add.svg" alt="add" />
+      <img v-if="props.foo.add" @click="changeMethod(add)" src="@/assets/icons/add.svg" alt="add" />
       <img @click="changeMethod(edit)" src="@/assets/icons/edit.svg" alt="edit" />
       <img @click="changeMethod(del)" src="@/assets/icons/delete.svg" alt="edit" />
     </div>

@@ -1,13 +1,22 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+import ComponentDoorChangeMenu from '@/components/ComponentDoorChangeMenu.vue'
 import { title, price } from '@/utilte/utilte.js'
+import { PatchComponent, DeleteComponent, GetComponent } from '@/api/api.js'
 
-const props = defineProps(['door'])
+const props = defineProps(['door', 'admin'])
 const door = ref(props.door)
+const components = ref([])
+const isLoding = ref(true)
 
-function init() {
+async function init() {
   door.value = props.door
   door.value.components = door.value.components.map((i) => (i = { ...i, count: 1 }))
+  if (props.admin) {
+    const res = await GetComponent()
+    components.value = res.data
+  }
+  isLoding.value = false
 }
 
 onMounted(() => {
@@ -26,6 +35,12 @@ function priceChange(key, value) {
     value > 0 ? value : door.value.components[key].count <= 0 ? 0 : value
 }
 
+async function componentChange(id, obj) {
+  console.log(id)
+  console.log(obj)
+  PatchComponent({ id: id, door_id: door.value.id, ...obj })
+}
+
 function doorChange() {
   init()
 }
@@ -34,12 +49,24 @@ watch(() => props.door, doorChange)
 </script>
 
 <template>
-  <div class="box-y gap2 calculator">
+  <div v-if="!isLoding" class="box-y gap2 calculator">
     <h2>{{ totalPrice }}</h2>
     <ul class="box-y">
       <li class="box-x calculator__item gap2" v-for="(value, key) in door.components" :key="key">
-        <p>{{ title(value.name) }}</p>
-        <hr class="flex" />
+        <p v-if="!props.admin">{{ title(value.name) }}</p>
+        <div v-else class="">
+          <ComponentDoorChangeMenu
+            @change="componentChange"
+            :arr="components"
+            :id="value.id"
+            :foo="{
+              patch: PatchComponent,
+              delete: DeleteComponent
+            }"
+            :keys="['name', 'price']"
+          />
+        </div>
+        <hr v-if="!admin" class="flex" />
         <div class="box-x gap">
           <p>{{ price(value.price * value.count) }}</p>
           <div class="box-x calculator__price">
