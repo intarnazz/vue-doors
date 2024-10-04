@@ -24,8 +24,12 @@ const objId = computed(() => {
   return array.value.findIndex((e) => e.id === id.value)
 })
 
-const getMethod = computed(() => {
+const keyValues = computed(() => {
   return method.value + '' === edit + '' ? array.value[objId.value] : {}
+})
+
+const isDelete = computed(() => {
+  return method.value + '' === del + ''
 })
 
 function changeMethod(value) {
@@ -47,6 +51,14 @@ async function edit() {
   const res = await props.foo.patch({ id: id.value, ...obj.value })
   array.value[objId.value] = res.data
   close()
+}
+
+async function del() {
+  const res = await props.foo.delete({ id: id.value, ...obj.value })
+  if (res.success) {
+    array.value.splice(objId.value, 1)
+    close()
+  }
 }
 
 function close() {
@@ -71,17 +83,30 @@ watch(() => id.value, change)
     <div class="select__button-wrapper box-x gap">
       <img @click="changeMethod(add)" src="@/assets/icons/add.svg" alt="add" />
       <img @click="changeMethod(edit)" src="@/assets/icons/edit.svg" alt="edit" />
+      <img @click="changeMethod(del)" src="@/assets/icons/delete.svg" alt="edit" />
     </div>
   </div>
-  <LayoutPopup @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
+  <LayoutPopup v-if="!isDelete" @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
     <FormMain @submit="method" class="form">
       <ComponentFormContent
         @change="(e) => (obj = e)"
         :title="'Добавить'"
         :keys="props.keys"
         :submit="'Создать'"
-        :obj="getMethod"
+        :obj="keyValues"
       />
+    </FormMain>
+  </LayoutPopup>
+  <LayoutPopup v-else @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
+    <FormMain @submit="method" class="form">
+      <ul class="box-y gap">
+        <li>
+          <h2>Точно хотите удалить?</h2>
+        </li>
+        <li class="box-y">
+          <button type="submit" class="button">Удалить</button>
+        </li>
+      </ul>
     </FormMain>
   </LayoutPopup>
 </template>
@@ -99,5 +124,5 @@ img
     position: relative
   &__button-wrapper
     position: absolute
-    right: -80px
+    right: -120px
 </style>
