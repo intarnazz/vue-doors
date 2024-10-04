@@ -37,8 +37,6 @@ const Push = async (url, method, data) => {
   return await Post(`${url}/${data.id}`, { _method: method, ...data })
 }
 
-// const api = {}
-
 export const DeleteDoor = async (data) => await Push('door', 'DELETE', data)
 export const DeleteBrand = async (data) => await Push('brand', 'DELETE', data)
 export const DeleteComponent = async (data) => await Push('component', 'DELETE', data)

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import LayoutPopup from '@/layout/LayoutPopup.vue'
 import FormMain from '@/layout/form/FormMain.vue'
 import ComponentFormContent from '@/components/ComponentFormContent.vue'
@@ -20,6 +20,14 @@ onMounted(() => {
   init()
 })
 
+const objId = computed(() => {
+  return array.value.findIndex((e) => e.id === id.value)
+})
+
+const getMethod = computed(() => {
+  return method.value + '' === edit + '' ? array.value[objId.value] : {}
+})
+
 function changeMethod(value) {
   method.value = value
   changePopup()
@@ -36,14 +44,18 @@ async function add() {
 }
 
 async function edit() {
-  const res = await props.foo.patch(obj.value)
-  array.value.push(res.data)
-  id.value = res.data.id
+  const res = await props.foo.patch({ id: id.value, ...obj.value })
+  array.value[objId.value] = res.data
+  close()
+}
+
+function close() {
+  popupIsOpen.value = false
 }
 
 function change() {
   emit('change', id.value)
-  popupIsOpen.value = false
+  close()
 }
 
 watch(() => id.value, change)
@@ -56,7 +68,7 @@ watch(() => id.value, change)
         {{ value.name }}
       </option>
     </select>
-    <div class="select__button-wrapper">
+    <div class="select__button-wrapper box-x gap">
       <img @click="changeMethod(add)" src="@/assets/icons/add.svg" alt="add" />
       <img @click="changeMethod(edit)" src="@/assets/icons/edit.svg" alt="edit" />
     </div>
@@ -68,6 +80,7 @@ watch(() => id.value, change)
         :title="'Добавить'"
         :keys="props.keys"
         :submit="'Создать'"
+        :obj="getMethod"
       />
     </FormMain>
   </LayoutPopup>
@@ -86,5 +99,5 @@ img
     position: relative
   &__button-wrapper
     position: absolute
-    right: -50px
+    right: -80px
 </style>

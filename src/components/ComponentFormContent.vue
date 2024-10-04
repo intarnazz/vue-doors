@@ -1,8 +1,8 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 
-const props = defineProps(['title', 'keys', 'submit'])
-const obj = ref(Object.fromEntries(props.keys.map((key) => [key, ''])))
+const props = defineProps(['title', 'keys', 'submit', 'obj'])
+const obj = ref(Object.fromEntries(props.keys.map((key) => [key, props.obj[key] || ''])))
 const emit = defineEmits(['change'])
 
 const submit = computed(() => {

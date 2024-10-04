@@ -17,7 +17,9 @@ import {
   AddBrand,
   AddMaterial,
   PatchBrand,
-  PatchMaterial
+  PatchMaterial,
+  DeleteBrand,
+  DeleteMaterial
 } from '@/api/api.js'
 
 const props = defineProps(['door', 'id', 'doorKey', 'doorsLen'])
@@ -215,7 +217,8 @@ watch(() => props.door, init)
                           :id="value.id"
                           :foo="{
                             add: AddBrand,
-                            patch: PatchBrand
+                            patch: PatchBrand,
+                            delete: DeleteBrand
                           }"
                           :keys="['name']"
                         />
@@ -227,7 +230,8 @@ watch(() => props.door, init)
                           :id="value.id"
                           :foo="{
                             add: AddMaterial,
-                            patch: PatchMaterial
+                            patch: PatchMaterial,
+                            delete: DeleteMaterial
                           }"
                           :keys="['name']"
                         />
