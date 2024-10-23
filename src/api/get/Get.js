@@ -9,6 +9,7 @@ export async function Get(
   material = '',
   response_id = 1
 ) {
+  NProgress.start()
   return await fetch(`${API_URL}${url}`, {
     method: 'GET',
     headers: {
@@ -22,6 +23,7 @@ export async function Get(
   })
     .then((response) => response.json())
     .then((json) => {
+      NProgress.done()
       return json
     })
     .catch((e) => {
