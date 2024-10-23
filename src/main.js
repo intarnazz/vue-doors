@@ -32,10 +32,11 @@ createApp(App).use(router).mount('#app')
 // [X] -  catalog aside component
 // [X] -  SectionDoorsSliderNonTarget @click
 // [X] -  добовление, изменение, удаление, основных элементов
+// [X] -  title component
+// [X] -  button index
 
-// [ ] -  title component
 // [ ] -  php contact
-// [ ] -  button index
+
 // [ ] -  загрузка в header
 // [ ] -  search ani
 // [ ] -  svg Door loding

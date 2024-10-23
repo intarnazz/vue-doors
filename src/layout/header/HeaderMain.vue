@@ -4,12 +4,16 @@ import SearchComponent from '@/components/ComponentSearch.vue'
 import { RouterLink } from 'vue-router'
 import LayoutAdmin from '@/layout/LayoutAdmin.vue'
 import ComponentLogo from '@/components/ComponentLogo.vue'
+import SvgHome from '@/components/svg/SvgHome.vue'
 </script>
 
 <template>
   <header class="header box-shadow">
     <LayoutWrapper class="box-x header__wrapper">
       <nav class="flex box-x">
+        <RouterLink :to="{ name: 'home' }">
+          <SvgHome />
+        </RouterLink>
         <RouterLink :to="{ name: 'catalog' }">Каталог</RouterLink>
         <RouterLink :to="{ name: 'contact' }">Контакты</RouterLink>
       </nav>
