@@ -241,7 +241,7 @@ watch(() => props.door, init)
                 </div>
               </div>
             </div>
-            <ComponentDoorСalculator v-if="!loding" :admin="admin" :door="door" />
+            <ComponentDoorСalculator @save="patch" v-if="!loding" :admin="admin" :door="door" />
           </div>
         </div>
         <button

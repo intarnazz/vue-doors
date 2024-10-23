@@ -4,13 +4,14 @@ import LayoutPopup from '@/layout/LayoutPopup.vue'
 import FormMain from '@/layout/form/FormMain.vue'
 import ComponentFormContent from '@/components/ComponentFormContent.vue'
 
-const props = defineProps(['id', 'arr', 'foo', 'keys'])
-const emit = defineEmits(['change'])
+const props = defineProps(['id', 'arr', 'foo', 'keys', 'door_id'])
+const emit = defineEmits(['change', 'save'])
 const id = ref(props.id)
 const array = ref([])
 const obj = ref(null)
 const method = ref(null)
 const popupIsOpen = ref(false)
+const areYouSure = ref(false)
 
 function init() {
   array.value.push(...props.arr)
@@ -53,23 +54,28 @@ async function edit() {
   change()
 }
 
-async function del() {
-  const res = await props.foo.delete({ id: id.value, ...obj.value })
+async function del(values) {
+  const res = await props.foo.delete({
+    id: id.value,
+    door_id: values.door_id || '',
+    delete: values.delete || '',
+    ...obj.value
+  })
   if (res.success) {
     array.value.splice(objId.value, 1)
     change()
+    emit('save')
   }
 }
 
+// watch
 function close() {
   popupIsOpen.value = false
 }
-
 function change() {
   emit('change', id.value, array.value[objId.value])
   close()
 }
-
 watch(() => id.value, change)
 </script>
 
@@ -95,19 +101,41 @@ watch(() => id.value, change)
         @change="(e) => (obj = e)"
         :title="'Добавить'"
         :keys="props.keys"
-        :submit="'Создать'"
+        :submit="method + '' === foo.add + '' ? 'создать' : 'изменить'"
         :obj="keyValues"
       />
     </FormMain>
   </LayoutPopup>
   <LayoutPopup v-else @popupIsClose="changePopup" :popupIsOpen="popupIsOpen">
-    <FormMain @submit="method" class="form">
+    <FormMain class="form">
+      <ul class="box-y gap">
+        <li>
+          <h2>удалить</h2>
+        </li>
+        <li class="box-y gap">
+          <button @click="method({ door_id: props.door_id })" type="button" class="button">
+            Удалить только тут
+          </button>
+          <button @click="() => (areYouSure = true)" type="button" class="button button_r">
+            Удалить везде
+          </button>
+        </li>
+      </ul>
+    </FormMain>
+  </LayoutPopup>
+  <LayoutPopup @popupIsClose="() => (areYouSure = false)" :popupIsOpen="areYouSure">
+    <FormMain class="form">
       <ul class="box-y gap">
         <li>
           <h2>Точно хотите удалить?</h2>
         </li>
-        <li class="box-y">
-          <button type="submit" class="button">Удалить</button>
+        <li>
+          <p>этот компонент будет удолён во всех дверях</p>
+        </li>
+        <li class="box-y gap">
+          <button @click="method({ delete: 'delete' })" type="button" class="button button_r">
+            Удалить везде
+          </button>
         </li>
       </ul>
     </FormMain>

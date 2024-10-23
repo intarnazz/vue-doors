@@ -31,8 +31,9 @@ createApp(App).use(router).mount('#app')
 // [X] -  love button doors_s
 // [X] -  catalog aside component
 // [X] -  SectionDoorsSliderNonTarget @click
+// [X] -  добовление, изменение, удаление, основных элементов
 
-// [ ] -  добовление, изменение, удаление, основных элементов
+// [ ] -  title component
 // [ ] -  php contact
 // [ ] -  button index
 // [ ] -  загрузка в header
