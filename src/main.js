@@ -36,8 +36,9 @@ createApp(App).use(router).mount('#app')
 // [X] -  title component
 // [X] -  button index
 
-// [ ] -  php contact
+// [ ] -  уромка абс
 
+// [ ] -  php contact
 // [ ] -  загрузка в header
 // [ ] -  search ani
 // [ ] -  svg Door loding
